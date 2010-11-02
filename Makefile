@@ -2,7 +2,8 @@ GTESTDIR=$(HOME)/local/gtest-1.5.0/intel/
 CXX=icpc
 
 OBJECTS = \
-   tower.o
+   tower.o \
+   entity.o
 
 all: td test
 
