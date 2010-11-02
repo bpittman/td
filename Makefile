@@ -1,10 +1,23 @@
 GTESTDIR=$(HOME)/local/gtest-1.5.0/intel/
-CXX=icc
+CXX=icpc
+
+OBJECTS = \
+   tower.o
+
 all: td test
 
-test:
-	$(CXX) -g -lpthread -I$(GTESTDIR)/include test.cpp $(GTESTDIR)/lib/libgtest.a $(GTESTDIR)/lib/libgtest_main.a -o test
+td: $(OBJECTS) td.o
+	$(CXX) -o $@ $(OBJECTS) td.o
+
+test: test.cpp
+	$(CXX) -g -lpthread \
+	-I$(GTESTDIR)/include \
+	test.cpp \
+	$(GTESTDIR)/lib/libgtest.a \
+	$(GTESTDIR)/lib/libgtest_main.a \
+	$(OBJECTS) \
+	-o test
 	./test
 
 clean:
-	rm test
+	rm -rf *.o test
