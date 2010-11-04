@@ -1,0 +1,38 @@
+td - Distributed Genetic Evaluation of Tower Defense Game Positions
+
+Final Project for CPE512 Parallel Programming Course
+
+Dependencies:
+Google Test (sudo apt-get install libgtest-dev)
+
+Project Proposal:
+Tower Defense games are described by wikipedia[1] as a "subgenre of real-time strategy
+computer games. The goal is to try to stop enemies from crossing the map by building towers
+which shoot at them as they pass." The goal of this project will be to create a small tower
+defense simulation and develop a distributed genetic algorithm to determine favorable tower
+placement locations.
+
+The simulation will consist of a closed rectangular area. Enemies will appear from one or
+more points on the edge of this area, and attempt to move to a goal point by using simple
+pathfinding techniques. Towers will be placed within the area to attempt to destroy the
+enemies before they can reach the goal point. There will be at least 3 types of towers: a long
+range/low damage tower, a short range/high damage tower, and a tower that temporarily
+slows the movement speed of the enemies, but does no damage. There will be a limited
+number of towers available to be placed. The tower positions will be constrained to a
+rectangular grid within the simulation area, and any position that completely blocks the
+movement of enemies towards the goal point will be ruled invalid. In other words, there must
+always exist at least one path from the entry point to the goal point.
+
+This project will use a distributed genetic algorithm to determine favorable tower positions for
+destroying the largest number of enemies. The fitness of each placement will be evaluated
+by running a simulation to determine how many enemies reach the goal point. The parallel
+performance will be evaluated both in terms of speedup (the number of genetic permutations
+that can be evaluated in a certain wall clock time), efficiency of evaluating positions, and also
+by the quality of the best positions generated (as measured against the fitness function.)
+
+The project will be written in C++ and MPI and use the altix.asc.edu cluster to test the parallel
+performance. A survey of existing open-source tower defense games will be performed, and if
+a suitable existing project is found, it may be used for the serial implementation. If no suitable
+existing project is found, a basic serial simulation will be written from scratch.
+
+[1] http://en.wikipedia.org/wiki/Tower_defense
