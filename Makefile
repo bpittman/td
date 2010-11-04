@@ -1,5 +1,5 @@
-GTESTDIR=$(HOME)/local/gtest-1.5.0/intel/
-CXX=icpc
+GTESTDIR=/usr
+CXX=g++
 
 OBJECTS = \
    tower.o \
