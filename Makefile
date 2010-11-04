@@ -3,7 +3,8 @@ CXX=g++
 
 OBJECTS = \
    tower.o \
-   entity.o
+   entity.o \
+   object.o
 
 all: td test
 
