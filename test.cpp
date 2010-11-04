@@ -2,6 +2,7 @@
 
 #include "tower.hpp"
 #include "entity.hpp"
+#include "map.hpp"
 
 TEST(Tower, CreateTower) {
   Tower* t = NULL;
@@ -33,4 +34,32 @@ TEST(Entity, SetPosition) {
   EXPECT_EQ(1,e->getPosition()[0]);
   EXPECT_EQ(2,e->getPosition()[1]);
   delete e;
+}
+
+TEST(Map, createMap) {
+  Map* m = NULL;
+  m = new Map();
+  ASSERT_TRUE(m != NULL);
+  delete m;
+}
+
+TEST(Map, addObject) {
+  Map* m = NULL;
+  m = new Map();
+
+  Tower* t = NULL;
+  t = new Tower();
+
+  m->addObject(dynamic_cast<Object*>(t));
+  ASSERT_EQ(t,m->getObject(0));
+  delete m;
+  delete t;
+}
+
+TEST(Map, objectOutOfRange) {
+  Map* m = NULL;
+  m = new Map();
+
+  ASSERT_EQ(NULL,m->getObject(0));
+  delete m;
 }
