@@ -3,19 +3,23 @@
 
 #include <vector>
 
-#include "object.hpp"
+#include "tower.hpp"
+#include "entity.hpp"
 
 class Map
 {
 
 public:
    Map();
-   void addObject(Object* o);
-   Object* getObject(int i);
+   void addTower(Tower* t);
+   void addEntity(Entity* e);
+   Tower* getTower(int i);
+   Entity* getEntity(int i);
    ~Map();
 
 private:
-   std::vector<Object*> objects;
+   std::vector<Tower*> towers;
+   std::vector<Entity*> entities;
 };
 
 #endif // MAP_HPP

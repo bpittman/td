@@ -43,23 +43,37 @@ TEST(Map, createMap) {
   delete m;
 }
 
-TEST(Map, addObject) {
+TEST(Map, addTower) {
   Map* m = NULL;
   m = new Map();
 
   Tower* t = NULL;
   t = new Tower();
 
-  m->addObject(dynamic_cast<Object*>(t));
-  ASSERT_EQ(t,m->getObject(0));
+  m->addTower(t);
+  ASSERT_EQ(t,m->getTower(0));
   delete m;
   delete t;
+}
+
+TEST(Map, addEntity) {
+  Map* m = NULL;
+  m = new Map();
+
+  Entity* e = NULL;
+  e = new Entity();
+
+  m->addEntity(e);
+  ASSERT_EQ(e,m->getEntity(0));
+  delete m;
+  delete e;
 }
 
 TEST(Map, objectOutOfRange) {
   Map* m = NULL;
   m = new Map();
 
-  ASSERT_EQ(NULL,m->getObject(0));
+  ASSERT_EQ(NULL,m->getTower(0));
+  ASSERT_EQ(NULL,m->getEntity(0));
   delete m;
 }

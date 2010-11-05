@@ -5,14 +5,25 @@ Map::Map()
 
 }
 
-void Map::addObject(Object* o)
+void Map::addTower(Tower* t)
 {
-   objects.push_back(o);
+   towers.push_back(t);
 }
 
-Object* Map::getObject(int i)
+void Map::addEntity(Entity* e)
 {
-   if(i<objects.size()) return objects[i];
+   entities.push_back(e);
+}
+
+Tower* Map::getTower(int i)
+{
+   if(i<towers.size()) return towers[i];
+   else                 return NULL;
+}
+
+Entity* Map::getEntity(int i)
+{
+   if(i<entities.size()) return entities[i];
    else                 return NULL;
 }
 
