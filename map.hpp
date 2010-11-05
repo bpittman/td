@@ -11,8 +11,8 @@ class Map
 
 public:
    Map();
-   void addTower(Tower* t);
-   void addEntity(Entity* e);
+   bool addTower(Tower* t);
+   bool addEntity(Entity* e);
    Tower* getTower(int i);
    Entity* getEntity(int i);
    ~Map();

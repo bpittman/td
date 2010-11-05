@@ -56,6 +56,67 @@ TEST(Map, addTower) {
   delete t;
 }
 
+TEST(Map, addTowerOverlappingPosition) {
+  Map* m = NULL;
+  m = new Map();
+
+  Tower* t1 = new Tower();
+  Tower* t2 = new Tower();
+
+  EXPECT_TRUE(m->addTower(t1));
+  EXPECT_FALSE(m->addTower(t2));
+
+  delete m;
+  delete t1, t2;
+}
+
+TEST(Map, addTowerNonOverlappingPosition) {
+  Map* m = NULL;
+  m = new Map();
+
+  Tower* t1 = new Tower();
+  Tower* t2 = new Tower();
+  t2->setPosition(0,1);
+
+  EXPECT_TRUE(m->addTower(t1));
+  EXPECT_TRUE(m->addTower(t2));
+
+  delete m;
+  delete t1, t2;
+}
+
+TEST(Map, addEntityOverlappingPosition) {
+  Map* m = NULL;
+  m = new Map();
+
+  Tower* t = new Tower();
+  Entity* e = new Entity();
+
+  EXPECT_TRUE(m->addTower(t));
+  EXPECT_FALSE(m->addEntity(e));
+
+  delete m;
+  delete t, e;
+}
+
+TEST(Map, addEntityNonOverlappingPosition) {
+  Map* m = NULL;
+  m = new Map();
+
+  Tower* t = new Tower();
+  Entity* e1 = new Entity();
+  Entity* e2 = new Entity();
+  e1->setPosition(0,1);
+  e2->setPosition(0,1);
+
+  EXPECT_TRUE(m->addTower(t));
+  EXPECT_TRUE(m->addEntity(e1));
+  EXPECT_TRUE(m->addEntity(e2));
+
+  delete m;
+  delete t, e1, e2;
+}
+
 TEST(Map, addEntity) {
   Map* m = NULL;
   m = new Map();
