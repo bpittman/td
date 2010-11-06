@@ -138,3 +138,29 @@ TEST(Map, objectOutOfRange) {
   ASSERT_EQ(NULL,m->getEntity(0));
   delete m;
 }
+
+TEST(Map, setSize) {
+  Map* m = new Map();
+  m->setSize(10,20);
+
+  EXPECT_EQ(10,m->getSize()[0]);
+  EXPECT_EQ(20,m->getSize()[1]);
+  delete m;
+}
+
+TEST(Map, positionOutOfRange) {
+  Map* m = new Map();
+  m->setSize(10,20);
+
+  Entity* e = new Entity();
+
+  e->setPosition(10,0);
+  EXPECT_FALSE(m->addEntity(e));
+
+  e->setPosition(0,20);
+  EXPECT_FALSE(m->addEntity(e));
+
+  e->setPosition(0,0);
+  EXPECT_TRUE(m->addEntity(e));
+  delete m;
+}

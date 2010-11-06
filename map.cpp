@@ -2,11 +2,25 @@
 
 Map::Map()
 {
+   size[0] = size[1] = 10;
+}
 
+void Map::setSize(int x, int y)
+{
+   size[0] = x;
+   size[1] = y;
+}
+
+const int* Map::getSize()
+{
+   return size;
 }
 
 bool Map::addTower(Tower* t)
 {
+   if(t->getPosition()[0] >= size[0] ||
+      t->getPosition()[1] >= size[1]) return false;
+
    for(int i=0;i<towers.size();++i) {
       if(towers[i]->getPosition()[0] == t->getPosition()[0] &&
          towers[i]->getPosition()[1] == t->getPosition()[1]) {
@@ -20,6 +34,9 @@ bool Map::addTower(Tower* t)
 //entities can overlap with each other, but not with towers
 bool Map::addEntity(Entity* e)
 {
+   if(e->getPosition()[0] >= size[0] ||
+      e->getPosition()[1] >= size[1]) return false;
+
    for(int i=0;i<towers.size();++i) {
       if(towers[i]->getPosition()[0] == e->getPosition()[0] &&
          towers[i]->getPosition()[1] == e->getPosition()[1]) {
