@@ -162,5 +162,23 @@ TEST(Map, positionOutOfRange) {
 
   e->setPosition(0,0);
   EXPECT_TRUE(m->addEntity(e));
-  delete m;
+  delete m, e;
+}
+
+TEST(Map, getClosestEntity) {
+  Map* m = new Map();
+  m->setSize(10,20);
+
+  Entity* e1 = new Entity();
+  Entity* e2 = new Entity();
+
+  e1->setPosition(9,0);
+  e2->setPosition(0,9);
+
+  m->addEntity(e1);
+  m->addEntity(e2);
+
+  EXPECT_EQ(e1,m->getClosestEntity(9,1));
+  EXPECT_EQ(e2,m->getClosestEntity(1,9));
+  delete m, e1, e2;
 }

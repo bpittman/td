@@ -17,6 +17,7 @@ public:
    bool addEntity(Entity* e);
    Tower* getTower(int i);
    Entity* getEntity(int i);
+   Entity* getClosestEntity(int x, int y);
    ~Map();
 
 private:
