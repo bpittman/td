@@ -20,6 +20,14 @@ TEST(Tower, SetPosition) {
   delete t;
 }
 
+TEST(Tower, SetTarget) {
+  Tower* t = new Tower();
+  Entity *e = new Entity();
+  t->setTarget(e);
+  EXPECT_EQ(e,t->getTarget());
+  delete t,e;
+}
+
 TEST(Entity, CreateEntity) {
   Entity* e = NULL;
   e = new Entity();
