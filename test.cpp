@@ -44,6 +44,20 @@ TEST(Entity, SetPosition) {
   delete e;
 }
 
+TEST(Entity, Health) {
+  Entity* e = NULL;
+  e = new Entity();
+  EXPECT_EQ(100,e->getHealth());
+  EXPECT_TRUE(e->alive());
+  e->setHealth(e->getHealth()-50);
+  EXPECT_EQ(50,e->getHealth());
+  EXPECT_TRUE(e->alive());
+  e->setHealth(e->getHealth()-50);
+  EXPECT_EQ(0,e->getHealth());
+  EXPECT_FALSE(e->alive());
+  delete e;
+}
+
 TEST(Map, createMap) {
   Map* m = NULL;
   m = new Map();

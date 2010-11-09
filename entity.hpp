@@ -8,8 +8,13 @@ class Entity: public Object
 
 public:
    Entity();
+   int getHealth();
+   void setHealth(int h);
+   bool alive();
    ~Entity();
 
+private:
+   int health;
 };
 
 #endif // ENTITY_HPP
