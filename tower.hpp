@@ -15,6 +15,7 @@ public:
 
 private:
    Entity* target;
+   int range;
 };
 
 #endif // TOWER_HPP

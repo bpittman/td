@@ -11,7 +11,7 @@ public:
    const int* getPosition();
    ~Object();
 
-private:
+protected:
    int position[2];
 };
 
