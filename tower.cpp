@@ -16,6 +16,14 @@ void Tower::setTarget(Entity* e)
    }
 }
 
+bool Tower::isTargetInRange()
+{
+   if(target==0) return false;
+   double dist = sqrt(pow(target->getPosition()[0]-position[0],2) +
+                      pow(target->getPosition()[1]-position[1],2));
+   if(dist<=range) return true;
+}
+
 Entity* Tower::getTarget()
 {
    return target;

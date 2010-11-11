@@ -11,6 +11,7 @@ public:
    Tower();
    Entity* getTarget();
    void setTarget(Entity* e);
+   bool isTargetInRange();
    ~Tower();
 
 private:

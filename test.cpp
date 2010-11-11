@@ -33,6 +33,19 @@ TEST(Tower, SetTarget) {
   delete t,e;
 }
 
+TEST(Tower, IsTargetInRange) {
+  Tower* t = new Tower();
+  EXPECT_FALSE(t->isTargetInRange());
+  t->setPosition(0,0);
+  Entity *e = new Entity();
+  e->setPosition(0,5);
+  t->setTarget(e);
+  EXPECT_TRUE(t->isTargetInRange());
+  e->setPosition(0,6);
+  EXPECT_FALSE(t->isTargetInRange());
+  delete t,e;
+}
+
 TEST(Entity, CreateEntity) {
   Entity* e = NULL;
   e = new Entity();
