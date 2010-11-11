@@ -1,8 +1,24 @@
 #include <gtest/gtest.h>
 
+#include "object.hpp"
 #include "tower.hpp"
 #include "entity.hpp"
 #include "map.hpp"
+
+#include <math.h>
+
+TEST(Object, Distance) {
+  Object* o1 = new Object();
+  o1->setPosition(0,0);
+  Object* o2 = new Object();
+  o2->setPosition(0,5);
+  EXPECT_DOUBLE_EQ(5.0,o1->distance(o2));
+  o2->setPosition(1,1);
+  EXPECT_DOUBLE_EQ(sqrt(2),o2->distance(o1));
+  o2->setPosition(2,2);
+  EXPECT_DOUBLE_EQ(sqrt(8),o2->distance(o1));
+  delete o1,o2;
+}
 
 TEST(Tower, CreateTower) {
   Tower* t = NULL;

@@ -1,5 +1,4 @@
 #include "tower.hpp"
-#include <math.h>
 
 Tower::Tower()
 {
@@ -9,9 +8,7 @@ Tower::Tower()
 
 void Tower::setTarget(Entity* e)
 {
-   double dist = sqrt(pow(e->getPosition()[0]-position[0],2) +
-                      pow(e->getPosition()[1]-position[1],2));
-   if(dist<=range) {
+   if(distance(e)<=range) {
       target = e;
    }
 }
@@ -19,9 +16,7 @@ void Tower::setTarget(Entity* e)
 bool Tower::isTargetInRange()
 {
    if(target==0) return false;
-   double dist = sqrt(pow(target->getPosition()[0]-position[0],2) +
-                      pow(target->getPosition()[1]-position[1],2));
-   if(dist<=range) return true;
+   if(distance(target)<=range) return true;
 }
 
 Entity* Tower::getTarget()

@@ -9,6 +9,7 @@ public:
    Object();
    void setPosition(int x, int y);
    const int* getPosition();
+   double distance(Object* o);
    ~Object();
 
 protected:

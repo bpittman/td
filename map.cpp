@@ -1,5 +1,4 @@
 #include "map.hpp"
-#include "math.h"
 
 Map::Map()
 {
@@ -62,11 +61,12 @@ Entity* Map::getEntity(int i)
 
 Entity* Map::getClosestEntity(int x, int y)
 {
+   Object o;
+   o.setPosition(x,y);
    Entity* closest = NULL;
    double minDist = -1, dist;
    for(int i=0; i<entities.size(); ++i) {
-      dist = sqrt(pow(entities[i]->getPosition()[0]-x,2) +
-                  pow(entities[i]->getPosition()[1]-y,2));
+      dist = o.distance(entities[i]);
       if(minDist < 0 || dist < minDist) {
          closest = entities[i];
 	 minDist = dist;
