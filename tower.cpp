@@ -4,6 +4,7 @@ Tower::Tower()
 {
    target = 0;
    range = 5;
+   damage = 10;
 }
 
 void Tower::setTarget(Entity* e)
@@ -22,6 +23,13 @@ bool Tower::isTargetInRange()
 Entity* Tower::getTarget()
 {
    return target;
+}
+
+void Tower::fireAtTarget()
+{
+   if(target!=0 && isTargetInRange()) {
+      target->setHealth(target->getHealth()-damage);
+   }
 }
 
 Tower::~Tower()

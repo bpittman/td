@@ -62,6 +62,21 @@ TEST(Tower, IsTargetInRange) {
   delete t,e;
 }
 
+TEST(Tower, FireAtTarget) {
+  Tower* t = new Tower();
+  t->setPosition(0,0);
+  Entity *e = new Entity();
+  e->setPosition(0,5);
+  t->setTarget(e);
+  EXPECT_EQ(100,e->getHealth());
+  t->fireAtTarget();
+  EXPECT_EQ(90,e->getHealth());
+  e->setPosition(0,6);
+  t->fireAtTarget();
+  EXPECT_EQ(90,e->getHealth());
+  delete t,e;
+}
+
 TEST(Entity, CreateEntity) {
   Entity* e = NULL;
   e = new Entity();

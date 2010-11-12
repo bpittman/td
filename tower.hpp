@@ -12,11 +12,13 @@ public:
    Entity* getTarget();
    void setTarget(Entity* e);
    bool isTargetInRange();
+   void fireAtTarget();
    ~Tower();
 
 private:
    Entity* target;
    int range;
+   int damage;
 };
 
 #endif // TOWER_HPP
