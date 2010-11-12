@@ -253,3 +253,29 @@ TEST(Map, getClosestEntity) {
   EXPECT_EQ(e2,m->getClosestEntity(1,9));
   delete m, e1, e2;
 }
+
+TEST(Map, startPoint) {
+  Map* m = new Map();
+  m->setSize(10,20);
+
+  EXPECT_TRUE(m->setStartPoint(5,0));
+  EXPECT_EQ(5,m->getStartPoint()[0]);
+  EXPECT_EQ(0,m->getStartPoint()[1]);
+  EXPECT_FALSE(m->setStartPoint(11,20));
+  EXPECT_EQ(5,m->getStartPoint()[0]);
+  EXPECT_EQ(0,m->getStartPoint()[1]);
+  delete m;
+}
+
+TEST(Map, goalPoint) {
+  Map* m = new Map();
+  m->setSize(10,20);
+
+  EXPECT_TRUE(m->setGoalPoint(5,19));
+  EXPECT_EQ(5,m->getGoalPoint()[0]);
+  EXPECT_EQ(19,m->getGoalPoint()[1]);
+  EXPECT_FALSE(m->setGoalPoint(10,21));
+  EXPECT_EQ(5,m->getGoalPoint()[0]);
+  EXPECT_EQ(19,m->getGoalPoint()[1]);
+  delete m;
+}
