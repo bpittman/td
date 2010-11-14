@@ -3,8 +3,6 @@
 Map::Map()
 {
    size[0] = size[1] = 10;
-   startPoint[0] = startPoint[1] = 0;
-   goalPoint[0] = goalPoint[1] = 0;
 }
 
 void Map::setSize(int x, int y)
@@ -80,27 +78,25 @@ Entity* Map::getClosestEntity(int x, int y)
 bool Map::setStartPoint(int x, int y)
 {
    if(x >= size[0] || y >= size[1]) return false;
-   startPoint[0] = x;
-   startPoint[1] = y;
+   startPoint.setPosition(x,y);
    return true;
 }
 
 const int* Map::getStartPoint()
 {
-   return startPoint;
+   return startPoint.getPosition();
 }
 
 bool Map::setGoalPoint(int x, int y)
 {
    if(x >= size[0] || y >= size[1]) return false;
-   goalPoint[0] = x;
-   goalPoint[1] = y;
+   goalPoint.setPosition(x,y);
    return true;
 }
 
 const int* Map::getGoalPoint()
 {
-   return goalPoint;
+   return goalPoint.getPosition();
 }
 
 Map::~Map()

@@ -28,8 +28,8 @@ private:
    std::vector<Tower*> towers;
    std::vector<Entity*> entities;
    int size[2];
-   int startPoint[2];
-   int goalPoint[2];
+   Object startPoint;
+   Object goalPoint;
 };
 
 #endif // MAP_HPP
