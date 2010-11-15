@@ -4,6 +4,7 @@
 #include "tower.hpp"
 #include "entity.hpp"
 #include "map.hpp"
+#include "sim.hpp"
 
 #include <math.h>
 
@@ -278,4 +279,11 @@ TEST(Map, goalPoint) {
   EXPECT_EQ(5,m->getGoalPoint()[0]);
   EXPECT_EQ(19,m->getGoalPoint()[1]);
   delete m;
+}
+
+TEST(Sim, CreateSim) {
+  Sim* s = NULL;
+  s = new Sim();
+  ASSERT_TRUE(s != NULL);
+  delete s;
 }

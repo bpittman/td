@@ -5,7 +5,8 @@ OBJECTS = \
    tower.o \
    entity.o \
    object.o \
-   map.o
+   map.o \
+   sim.o
 
 all: td test
 
