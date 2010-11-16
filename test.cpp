@@ -313,3 +313,11 @@ TEST(Sim, CreateMap) {
   ASSERT_TRUE(s->getMap() != NULL);
   delete s;
 }
+
+TEST(Sim, PopulateMap) {
+  Sim* s = new Sim();
+  EXPECT_EQ(0,s->getMap()->getNumTowers());
+  EXPECT_TRUE(s->populateMap());
+  EXPECT_EQ(5,s->getMap()->getNumTowers());
+  delete s;
+}

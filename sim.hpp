@@ -11,10 +11,12 @@ class Sim
 public:
    Sim();
    Map* getMap();
+   bool populateMap();
    ~Sim();
 
 private:
    Map* map;
+   int numTowers;
 };
 
 #endif // SIM_HPP
