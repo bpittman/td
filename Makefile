@@ -24,4 +24,4 @@ test: $(OBJECTS) test.cpp
 	./test
 
 clean:
-	rm -rf *.o test
+	rm -rf *.o test td
