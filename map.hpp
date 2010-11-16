@@ -17,6 +17,8 @@ public:
    bool addEntity(Entity* e);
    Tower* getTower(int i);
    Entity* getEntity(int i);
+   int getNumTowers();
+   int getNumEntities();
    Entity* getClosestEntity(int x, int y);
    bool setStartPoint(int x, int y);
    const int* getStartPoint();

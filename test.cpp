@@ -128,6 +128,26 @@ TEST(Map, addTower) {
   delete t;
 }
 
+TEST(Map, getNumTowers) {
+  Map* m = new Map();
+  Tower* t = new Tower();
+  EXPECT_EQ(0,m->getNumTowers());
+  m->addTower(t);
+  EXPECT_EQ(1,m->getNumTowers());
+  delete m;
+  delete t;
+}
+
+TEST(Map, getNumEntities) {
+  Map* m = new Map();
+  Entity* e = new Entity();
+  EXPECT_EQ(0,m->getNumEntities());
+  m->addEntity(e);
+  EXPECT_EQ(1,m->getNumEntities());
+  delete m;
+  delete e;
+}
+
 TEST(Map, addTowerOverlappingPosition) {
   Map* m = NULL;
   m = new Map();

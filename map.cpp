@@ -59,6 +59,16 @@ Entity* Map::getEntity(int i)
    else                 return NULL;
 }
 
+int Map::getNumTowers()
+{
+   return towers.size();
+}
+
+int Map::getNumEntities()
+{
+   return entities.size();
+}
+
 Entity* Map::getClosestEntity(int x, int y)
 {
    Object o;
