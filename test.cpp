@@ -287,3 +287,9 @@ TEST(Sim, CreateSim) {
   ASSERT_TRUE(s != NULL);
   delete s;
 }
+
+TEST(Sim, CreateMap) {
+  Sim* s = new Sim();
+  ASSERT_TRUE(s->getMap() != NULL);
+  delete s;
+}
