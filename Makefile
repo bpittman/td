@@ -6,7 +6,8 @@ OBJECTS = \
    entity.o \
    object.o \
    map.o \
-   sim.o
+   sim.o \
+   path.o
 
 all: td test
 

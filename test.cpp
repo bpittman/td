@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
+#include <math.h>
 
 #include "object.hpp"
 #include "tower.hpp"
 #include "entity.hpp"
 #include "map.hpp"
 #include "sim.hpp"
-
-#include <math.h>
+#include "path.hpp"
 
 TEST(Object, Distance) {
   Object* o1 = new Object();
@@ -106,6 +106,22 @@ TEST(Entity, Health) {
   EXPECT_EQ(0,e->getHealth());
   EXPECT_FALSE(e->alive());
   delete e;
+}
+
+TEST(Path, CreatePath) {
+  Path* p = NULL;
+  p = new Path();
+  ASSERT_TRUE(p != NULL);
+  delete p;
+}
+
+TEST(Path, SetPosition) {
+  Path* p = NULL;
+  p = new Path();
+  p->setPosition(1,2);
+  EXPECT_EQ(1,p->getPosition()[0]);
+  EXPECT_EQ(2,p->getPosition()[1]);
+  delete p;
 }
 
 TEST(Map, createMap) {
