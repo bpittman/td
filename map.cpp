@@ -16,6 +16,7 @@ const int* Map::getSize()
    return size;
 }
 
+//towers cannot overlap with each other, or be on a path
 bool Map::addTower(Tower* t)
 {
    if(t->getPosition()[0] >= size[0] ||
@@ -24,6 +25,12 @@ bool Map::addTower(Tower* t)
    for(int i=0;i<towers.size();++i) {
       if(towers[i]->getPosition()[0] == t->getPosition()[0] &&
          towers[i]->getPosition()[1] == t->getPosition()[1]) {
+	 return false;
+      }
+   }
+   for(int i=0;i<paths.size();++i) {
+      if(paths[i]->getPosition()[0] == t->getPosition()[0] &&
+         paths[i]->getPosition()[1] == t->getPosition()[1]) {
 	 return false;
       }
    }
@@ -47,16 +54,44 @@ bool Map::addEntity(Entity* e)
    return true;
 }
 
+//paths cannot overlap with each other, or towers
+bool Map::addPath(Path* p)
+{
+   if(p->getPosition()[0] >= size[0] ||
+      p->getPosition()[1] >= size[1]) return false;
+
+   for(int i=0;i<towers.size();++i) {
+      if(towers[i]->getPosition()[0] == p->getPosition()[0] &&
+         towers[i]->getPosition()[1] == p->getPosition()[1]) {
+	 return false;
+      }
+   }
+   for(int i=0;i<paths.size();++i) {
+      if(towers[i]->getPosition()[0] == p->getPosition()[0] &&
+         towers[i]->getPosition()[1] == p->getPosition()[1]) {
+	 return false;
+      }
+   }
+   paths.push_back(p);
+   return true;
+}
+
 Tower* Map::getTower(int i)
 {
    if(i<towers.size()) return towers[i];
-   else                 return NULL;
+   else                return NULL;
 }
 
 Entity* Map::getEntity(int i)
 {
    if(i<entities.size()) return entities[i];
-   else                 return NULL;
+   else                  return NULL;
+}
+
+Path* Map::getPath(int i)
+{
+   if(i<paths.size()) return paths[i];
+   else               return NULL;
 }
 
 int Map::getNumTowers()
@@ -67,6 +102,11 @@ int Map::getNumTowers()
 int Map::getNumEntities()
 {
    return entities.size();
+}
+
+int Map::getNumPaths()
+{
+   return paths.size();
 }
 
 Entity* Map::getClosestEntity(int x, int y)

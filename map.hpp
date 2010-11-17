@@ -5,6 +5,7 @@
 
 #include "tower.hpp"
 #include "entity.hpp"
+#include "path.hpp"
 
 class Map
 {
@@ -15,10 +16,13 @@ public:
    const int* getSize();
    bool addTower(Tower* t);
    bool addEntity(Entity* e);
+   bool addPath(Path* p);
    Tower* getTower(int i);
    Entity* getEntity(int i);
+   Path* getPath(int i);
    int getNumTowers();
    int getNumEntities();
+   int getNumPaths();
    Entity* getClosestEntity(int x, int y);
    bool setStartPoint(int x, int y);
    const int* getStartPoint();
@@ -29,6 +33,7 @@ public:
 private:
    std::vector<Tower*> towers;
    std::vector<Entity*> entities;
+   std::vector<Path*> paths;
    int size[2];
    Object startPoint;
    Object goalPoint;

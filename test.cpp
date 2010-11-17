@@ -178,6 +178,24 @@ TEST(Map, addTowerOverlappingPosition) {
   delete t1, t2;
 }
 
+TEST(Map, addTowerOnPath) {
+  Map* m = NULL;
+  m = new Map();
+
+  Tower* t1 = new Tower();
+  Tower* t2 = new Tower();
+  t2->setPosition(1,1);
+  Path* p = new Path();
+  p->setPosition(1,1);
+  EXPECT_TRUE(m->addPath(p));
+  EXPECT_TRUE(m->addTower(t1));
+  EXPECT_FALSE(m->addTower(t2));
+
+  delete m;
+  delete t1, t2;
+  delete p;
+}
+
 TEST(Map, addTowerNonOverlappingPosition) {
   Map* m = NULL;
   m = new Map();
@@ -315,6 +333,17 @@ TEST(Map, goalPoint) {
   EXPECT_EQ(5,m->getGoalPoint()[0]);
   EXPECT_EQ(19,m->getGoalPoint()[1]);
   delete m;
+}
+
+TEST(Map, addPath) {
+  Map* m = new Map();
+  Path* p = new Path();
+
+  m->addPath(p);
+  ASSERT_EQ(p,m->getPath(0));
+  ASSERT_EQ(1,m->getNumPaths());
+  delete m;
+  delete p;
 }
 
 TEST(Sim, CreateSim) {
