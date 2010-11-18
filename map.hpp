@@ -35,8 +35,8 @@ private:
    std::vector<Entity*> entities;
    std::vector<Path*> paths;
    int size[2];
-   Object startPoint;
-   Object goalPoint;
+   Path startPoint;
+   Path goalPoint;
 };
 
 #endif // MAP_HPP

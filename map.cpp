@@ -3,6 +3,10 @@
 Map::Map()
 {
    size[0] = size[1] = 10;
+   startPoint.setPosition(0,0);
+   goalPoint.setPosition(9,9);
+   addPath(&startPoint);
+   addPath(&goalPoint);
 }
 
 void Map::setSize(int x, int y)
@@ -73,8 +77,8 @@ bool Map::addPath(Path* p)
       }
    }
    for(int i=0;i<paths.size();++i) {
-      if(towers[i]->getPosition()[0] == p->getPosition()[0] &&
-         towers[i]->getPosition()[1] == p->getPosition()[1]) {
+      if(paths[i]->getPosition()[0] == p->getPosition()[0] &&
+         paths[i]->getPosition()[1] == p->getPosition()[1]) {
 	 return false;
       }
    }

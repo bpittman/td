@@ -137,8 +137,9 @@ TEST(Map, addTower) {
 
   Tower* t = NULL;
   t = new Tower();
-
+  t->setPosition(1,1);
   m->addTower(t);
+
   ASSERT_EQ(t,m->getTower(0));
   delete m;
   delete t;
@@ -147,6 +148,7 @@ TEST(Map, addTower) {
 TEST(Map, getNumTowers) {
   Map* m = new Map();
   Tower* t = new Tower();
+  t->setPosition(1,1);
   EXPECT_EQ(0,m->getNumTowers());
   m->addTower(t);
   EXPECT_EQ(1,m->getNumTowers());
@@ -157,12 +159,11 @@ TEST(Map, getNumTowers) {
 TEST(Map, getNumEntities) {
   Map* m = new Map();
   Entity* e = new Entity();
-  Path* p = new Path();
-  EXPECT_TRUE(m->addPath(p));
+
   EXPECT_EQ(0,m->getNumEntities());
   m->addEntity(e);
   EXPECT_EQ(1,m->getNumEntities());
-  delete m, e, p;
+  delete m, e;
 }
 
 TEST(Map, addTowerOverlappingPosition) {
@@ -170,7 +171,9 @@ TEST(Map, addTowerOverlappingPosition) {
   m = new Map();
 
   Tower* t1 = new Tower();
+  t1->setPosition(1,1);
   Tower* t2 = new Tower();
+  t2->setPosition(1,1);
 
   EXPECT_TRUE(m->addTower(t1));
   EXPECT_FALSE(m->addTower(t2));
@@ -184,6 +187,7 @@ TEST(Map, addTowerOnPath) {
   m = new Map();
 
   Tower* t1 = new Tower();
+  t1->setPosition(2,2);
   Tower* t2 = new Tower();
   t2->setPosition(1,1);
   Path* p = new Path();
@@ -202,6 +206,7 @@ TEST(Map, addTowerNonOverlappingPosition) {
   m = new Map();
 
   Tower* t1 = new Tower();
+  t1->setPosition(1,0);
   Tower* t2 = new Tower();
   t2->setPosition(0,1);
 
@@ -217,8 +222,10 @@ TEST(Map, addEntityOverlappingPosition) {
   m = new Map();
 
   Tower* t = new Tower();
+  t->setPosition(1,1);
   Entity* e = new Entity();
   EXPECT_TRUE(m->addTower(t));
+  e->setPosition(1,1);
   EXPECT_FALSE(m->addEntity(e));
 
   delete m;
@@ -230,6 +237,7 @@ TEST(Map, addEntityNonOverlappingPosition) {
   m = new Map();
 
   Tower* t = new Tower();
+  t->setPosition(1,1);
   Path* p = new Path();
   p->setPosition(0,1);
   EXPECT_TRUE(m->addPath(p));
@@ -250,16 +258,13 @@ TEST(Map, addEntity) {
   Map* m = NULL;
   m = new Map();
 
-  Path* p = new Path();
-  EXPECT_TRUE(m->addPath(p));
-
   Entity* e = NULL;
   e = new Entity();
 
   m->addEntity(e);
   ASSERT_EQ(e,m->getEntity(0));
   delete m;
-  delete e, p;
+  delete e;
 }
 
 TEST(Map, objectOutOfRange) {
@@ -292,7 +297,7 @@ TEST(Map, positionOutOfRange) {
   p->setPosition(0,20);
   EXPECT_FALSE(m->addPath(p));
 
-  p->setPosition(0,0);
+  p->setPosition(1,1);
   EXPECT_TRUE(m->addPath(p));
   delete m, p;
 }
@@ -349,13 +354,30 @@ TEST(Map, goalPoint) {
   delete m;
 }
 
+TEST(Map, entityOnStartPoint) {
+  Map* m = new Map();
+  Entity* e = new Entity();
+
+  EXPECT_EQ(0,m->getStartPoint()[0]);
+  EXPECT_EQ(0,m->getStartPoint()[1]);
+
+  EXPECT_TRUE(m->addEntity(e));
+
+  delete m,e;
+}
+
 TEST(Map, addPath) {
   Map* m = new Map();
+
+  //due to startPoint and goalPoint
+  EXPECT_EQ(2,m->getNumPaths());
+
   Path* p = new Path();
+  p->setPosition(1,1);
 
   m->addPath(p);
-  ASSERT_EQ(p,m->getPath(0));
-  ASSERT_EQ(1,m->getNumPaths());
+  ASSERT_EQ(p,m->getPath(2));
+  EXPECT_EQ(3,m->getNumPaths());
   delete m;
   delete p;
 }
