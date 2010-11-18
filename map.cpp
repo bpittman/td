@@ -50,8 +50,14 @@ bool Map::addEntity(Entity* e)
 	 return false;
       }
    }
-   entities.push_back(e);
-   return true;
+   for(int i=0;i<paths.size();++i) {
+      if(paths[i]->getPosition()[0] == e->getPosition()[0] &&
+         paths[i]->getPosition()[1] == e->getPosition()[1]) {
+         entities.push_back(e);
+         return true;
+      }
+   }
+   return false;
 }
 
 //paths cannot overlap with each other, or towers
