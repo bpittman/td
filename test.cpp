@@ -29,8 +29,7 @@ TEST(Tower, CreateTower) {
 }
 
 TEST(Tower, SetPosition) {
-  Tower* t = NULL;
-  t = new Tower();
+  Tower* t = new Tower();
   t->setPosition(1,2);
   EXPECT_EQ(1,t->getPosition()[0]);
   EXPECT_EQ(2,t->getPosition()[1]);
@@ -86,8 +85,7 @@ TEST(Entity, CreateEntity) {
 }
 
 TEST(Entity, SetPosition) {
-  Entity* e = NULL;
-  e = new Entity();
+  Entity* e = new Entity();
   e->setPosition(1,2);
   EXPECT_EQ(1,e->getPosition()[0]);
   EXPECT_EQ(2,e->getPosition()[1]);
@@ -95,8 +93,7 @@ TEST(Entity, SetPosition) {
 }
 
 TEST(Entity, Health) {
-  Entity* e = NULL;
-  e = new Entity();
+  Entity* e = new Entity();
   EXPECT_EQ(100,e->getHealth());
   EXPECT_TRUE(e->alive());
   e->setHealth(e->getHealth()-50);
@@ -116,8 +113,7 @@ TEST(Path, CreatePath) {
 }
 
 TEST(Path, SetPosition) {
-  Path* p = NULL;
-  p = new Path();
+  Path* p = new Path();
   p->setPosition(1,2);
   EXPECT_EQ(1,p->getPosition()[0]);
   EXPECT_EQ(2,p->getPosition()[1]);
@@ -132,11 +128,8 @@ TEST(Map, createMap) {
 }
 
 TEST(Map, addTower) {
-  Map* m = NULL;
-  m = new Map();
-
-  Tower* t = NULL;
-  t = new Tower();
+  Map* m = new Map();
+  Tower* t = new Tower();
   t->setPosition(1,1);
   m->addTower(t);
 
@@ -167,8 +160,7 @@ TEST(Map, getNumEntities) {
 }
 
 TEST(Map, addTowerOverlappingPosition) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   Tower* t1 = new Tower();
   t1->setPosition(1,1);
@@ -183,8 +175,7 @@ TEST(Map, addTowerOverlappingPosition) {
 }
 
 TEST(Map, addTowerOnPath) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   Tower* t1 = new Tower();
   t1->setPosition(2,2);
@@ -202,8 +193,7 @@ TEST(Map, addTowerOnPath) {
 }
 
 TEST(Map, addTowerNonOverlappingPosition) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   Tower* t1 = new Tower();
   t1->setPosition(1,0);
@@ -218,8 +208,7 @@ TEST(Map, addTowerNonOverlappingPosition) {
 }
 
 TEST(Map, addEntityOverlappingPosition) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   Tower* t = new Tower();
   t->setPosition(1,1);
@@ -233,8 +222,7 @@ TEST(Map, addEntityOverlappingPosition) {
 }
 
 TEST(Map, addEntityNonOverlappingPosition) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   Tower* t = new Tower();
   t->setPosition(1,1);
@@ -255,11 +243,8 @@ TEST(Map, addEntityNonOverlappingPosition) {
 }
 
 TEST(Map, addEntity) {
-  Map* m = NULL;
-  m = new Map();
-
-  Entity* e = NULL;
-  e = new Entity();
+  Map* m = new Map();
+  Entity* e = new Entity();
 
   m->addEntity(e);
   ASSERT_EQ(e,m->getEntity(0));
@@ -268,8 +253,7 @@ TEST(Map, addEntity) {
 }
 
 TEST(Map, objectOutOfRange) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   ASSERT_EQ(NULL,m->getTower(0));
   ASSERT_EQ(NULL,m->getEntity(0));
@@ -383,8 +367,7 @@ TEST(Map, addPath) {
 }
 
 TEST(Map, addEntityOffPath) {
-  Map* m = NULL;
-  m = new Map();
+  Map* m = new Map();
 
   Path* p = new Path();
   p->setPosition(1,1);
