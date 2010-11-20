@@ -21,6 +21,24 @@ TEST(Object, Distance) {
   delete o1,o2;
 }
 
+TEST(Object, Adjacent) {
+   Object* o1 = new Object();
+   o1->setPosition(0,0);
+   Object* o2 = new Object();
+   o2->setPosition(0,1);
+   EXPECT_TRUE(o1->adjacent(o2));
+   EXPECT_TRUE(o2->adjacent(o1));
+   o2->setPosition(1,1);
+   EXPECT_TRUE(o1->adjacent(o2));
+   EXPECT_TRUE(o2->adjacent(o1));
+   o2->setPosition(1,2);
+   EXPECT_FALSE(o1->adjacent(o2));
+   EXPECT_FALSE(o2->adjacent(o1));
+   o2->setPosition(2,2);
+   EXPECT_FALSE(o1->adjacent(o2));
+   EXPECT_FALSE(o2->adjacent(o1));
+}
+
 TEST(Tower, CreateTower) {
   Tower* t = NULL;
   t = new Tower();
