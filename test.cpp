@@ -335,11 +335,11 @@ TEST(Map, startPoint) {
   m->setSize(10,20);
 
   EXPECT_TRUE(m->setStartPoint(5,0));
-  EXPECT_EQ(5,m->getStartPoint()[0]);
-  EXPECT_EQ(0,m->getStartPoint()[1]);
+  EXPECT_EQ(5,m->getStartPoint()->getPosition()[0]);
+  EXPECT_EQ(0,m->getStartPoint()->getPosition()[1]);
   EXPECT_FALSE(m->setStartPoint(11,20));
-  EXPECT_EQ(5,m->getStartPoint()[0]);
-  EXPECT_EQ(0,m->getStartPoint()[1]);
+  EXPECT_EQ(5,m->getStartPoint()->getPosition()[0]);
+  EXPECT_EQ(0,m->getStartPoint()->getPosition()[1]);
   delete m;
 }
 
@@ -348,11 +348,11 @@ TEST(Map, goalPoint) {
   m->setSize(10,20);
 
   EXPECT_TRUE(m->setGoalPoint(5,19));
-  EXPECT_EQ(5,m->getGoalPoint()[0]);
-  EXPECT_EQ(19,m->getGoalPoint()[1]);
+  EXPECT_EQ(5,m->getGoalPoint()->getPosition()[0]);
+  EXPECT_EQ(19,m->getGoalPoint()->getPosition()[1]);
   EXPECT_FALSE(m->setGoalPoint(10,21));
-  EXPECT_EQ(5,m->getGoalPoint()[0]);
-  EXPECT_EQ(19,m->getGoalPoint()[1]);
+  EXPECT_EQ(5,m->getGoalPoint()->getPosition()[0]);
+  EXPECT_EQ(19,m->getGoalPoint()->getPosition()[1]);
   delete m;
 }
 
@@ -360,8 +360,8 @@ TEST(Map, entityOnStartPoint) {
   Map* m = new Map();
   Entity* e = new Entity();
 
-  EXPECT_EQ(0,m->getStartPoint()[0]);
-  EXPECT_EQ(0,m->getStartPoint()[1]);
+  EXPECT_EQ(0,m->getStartPoint()->getPosition()[0]);
+  EXPECT_EQ(0,m->getStartPoint()->getPosition()[1]);
 
   EXPECT_TRUE(m->addEntity(e));
 

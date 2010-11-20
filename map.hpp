@@ -25,9 +25,9 @@ public:
    int getNumPaths();
    Entity* getClosestEntity(int x, int y);
    bool setStartPoint(int x, int y);
-   const int* getStartPoint();
+   Path* getStartPoint();
    bool setGoalPoint(int x, int y);
-   const int* getGoalPoint();
+   Path* getGoalPoint();
    ~Map();
 
 private:

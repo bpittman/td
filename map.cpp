@@ -142,9 +142,9 @@ bool Map::setStartPoint(int x, int y)
    return true;
 }
 
-const int* Map::getStartPoint()
+Path* Map::getStartPoint()
 {
-   return startPoint.getPosition();
+   return &startPoint;
 }
 
 bool Map::setGoalPoint(int x, int y)
@@ -154,9 +154,9 @@ bool Map::setGoalPoint(int x, int y)
    return true;
 }
 
-const int* Map::getGoalPoint()
+Path* Map::getGoalPoint()
 {
-   return goalPoint.getPosition();
+   return &goalPoint;
 }
 
 Map::~Map()
