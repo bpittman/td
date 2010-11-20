@@ -28,6 +28,7 @@ public:
    Path* getStartPoint();
    bool setGoalPoint(int x, int y);
    Path* getGoalPoint();
+   Path* bestAdjacentPath(Path* p);
    ~Map();
 
 private:

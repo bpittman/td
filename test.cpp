@@ -400,6 +400,27 @@ TEST(Map, addEntityOffPath) {
   delete p, e;
 }
 
+TEST(Map, bestAdjacentPath) {
+  Map* m = new Map();
+
+  Path* p1 = new Path();
+  p1->setPosition(1,0);
+  EXPECT_TRUE(m->addPath(p1));
+  EXPECT_EQ(p1,m->bestAdjacentPath(m->getStartPoint()));
+
+  Path* p2 = new Path();
+  p2->setPosition(1,1);
+  EXPECT_TRUE(m->addPath(p2));
+  EXPECT_EQ(p2,m->bestAdjacentPath(m->getStartPoint()));
+
+  Path* p3 = new Path();
+  p3->setPosition(3,3);
+  EXPECT_TRUE(m->addPath(p3));
+  EXPECT_EQ(NULL,m->bestAdjacentPath(p3));
+
+  delete m,p1,p2,p3;
+}
+
 TEST(Sim, CreateSim) {
   Sim* s = NULL;
   s = new Sim();
