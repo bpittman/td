@@ -159,13 +159,13 @@ Path* Map::getGoalPoint()
    return &goalPoint;
 }
 
-Path* Map::bestAdjacentPath(Path* p)
+Path* Map::bestAdjacentPath(Object* o)
 {
    double best,d;
    Path* bestPath = NULL;
    best = -1;
    for(int i=0;i<paths.size();++i) {
-      if(paths[i]->adjacent(p)) {
+      if(paths[i]->adjacent(o)) {
          d = goalPoint.distance(paths[i]);
 	 if(best < 0 || d < best) {
 	    best = d;
