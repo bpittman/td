@@ -176,6 +176,14 @@ Path* Map::bestAdjacentPath(Object* o)
    return bestPath;
 }
 
+void Map::moveEntity(Entity* e)
+{
+   Path* p = bestAdjacentPath(e);
+   if(p) {
+      e->setPosition(p->getPosition()[0],p->getPosition()[1]);
+   }
+}
+
 Map::~Map()
 {
 

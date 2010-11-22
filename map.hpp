@@ -29,6 +29,7 @@ public:
    bool setGoalPoint(int x, int y);
    Path* getGoalPoint();
    Path* bestAdjacentPath(Object* o);
+   void moveEntity(Entity* e);
    ~Map();
 
 private:
