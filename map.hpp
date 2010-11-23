@@ -30,6 +30,7 @@ public:
    Path* getGoalPoint();
    Path* bestAdjacentPath(Object* o);
    void moveEntity(Entity* e);
+   char* print();
    ~Map();
 
 private:

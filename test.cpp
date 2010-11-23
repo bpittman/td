@@ -439,6 +439,22 @@ TEST(Map, bestAdjacentPath) {
   delete m,p1,p2,p3;
 }
 
+TEST(Map, print) {
+   Map* m = new Map();
+   char* p = m->print();
+   EXPECT_STREQ(
+"S X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X X\n\
+X X X X X X X X X G\n",p);
+}
+
 TEST(Sim, CreateSim) {
   Sim* s = NULL;
   s = new Sim();

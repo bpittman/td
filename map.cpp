@@ -184,6 +184,10 @@ void Map::moveEntity(Entity* e)
    }
 }
 
+char* Map::print()
+{
+   return "";
+}
 Map::~Map()
 {
 
