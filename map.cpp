@@ -184,9 +184,43 @@ void Map::moveEntity(Entity* e)
    }
 }
 
-char* Map::print()
+std::string Map::print()
 {
-   return "";
+   std::string m[size[0]][size[1]], m_final;
+   for(int i=0;i<size[0];++i) {
+      for(int j=0;j<size[1];++j) {
+         m[i][j] = 'X';
+      }
+   }
+
+   for(int i=0;i<paths.size();++i) {
+      m[paths[i]->getPosition()[0]]
+       [paths[i]->getPosition()[1]] = 'P';
+   }
+
+   for(int i=0;i<towers.size();++i) {
+      m[towers[i]->getPosition()[0]]
+       [towers[i]->getPosition()[1]] = 'T';
+   }
+
+   for(int i=0;i<entities.size();++i) {
+      m[entities[i]->getPosition()[0]]
+       [entities[i]->getPosition()[1]] = 'E';
+   }
+
+   m[getStartPoint()->getPosition()[0]]
+    [getStartPoint()->getPosition()[1]] = 'S';
+
+   m[getGoalPoint()->getPosition()[0]]
+    [getGoalPoint()->getPosition()[1]] = 'G';
+
+   for(int i=0;i<size[0];++i) {
+      for(int j=0;j<size[1];++j) {
+         m_final+=m[i][j]+" ";
+      }
+      m_final+='\n';
+   }
+   return m_final;
 }
 Map::~Map()
 {

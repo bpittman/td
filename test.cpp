@@ -441,18 +441,68 @@ TEST(Map, bestAdjacentPath) {
 
 TEST(Map, print) {
    Map* m = new Map();
-   char* p = m->print();
-   EXPECT_STREQ(
-"S X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X X\n\
-X X X X X X X X X G\n",p);
+   std::string p = m->print();
+   EXPECT_EQ(
+      "S X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X G \n",
+      p);
+   Path* path = new Path();
+   path->setPosition(1,1);
+   EXPECT_TRUE(m->addPath(path));
+   p = m->print();
+   EXPECT_EQ(
+      "S X X X X X X X X X \n"
+      "X P X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X G \n",
+      p);
+   Tower* t= new Tower();
+   t->setPosition(1,2);
+   EXPECT_TRUE(m->addTower(t));
+   p = m->print();
+   EXPECT_EQ(
+      "S X X X X X X X X X \n"
+      "X P T X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X G \n",
+      p);
+   Entity* e= new Entity();
+   e->setPosition(1,1);
+   EXPECT_TRUE(m->addEntity(e));
+   p = m->print();
+   EXPECT_EQ(
+      "S X X X X X X X X X \n"
+      "X E T X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X X \n"
+      "X X X X X X X X X G \n",
+      p);
+   delete m,path,t,e;
 }
 
 TEST(Sim, CreateSim) {

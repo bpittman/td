@@ -2,6 +2,7 @@
 #define MAP_HPP
 
 #include <vector>
+#include <string>
 
 #include "tower.hpp"
 #include "entity.hpp"
@@ -30,7 +31,7 @@ public:
    Path* getGoalPoint();
    Path* bestAdjacentPath(Object* o);
    void moveEntity(Entity* e);
-   char* print();
+   std::string print();
    ~Map();
 
 private:
