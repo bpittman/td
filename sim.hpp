@@ -12,11 +12,13 @@ public:
    Sim();
    Map* getMap();
    bool populateMap();
+   bool spawn();
    ~Sim();
 
 private:
    Map* map;
    int numTowers;
+   int numEntities;
 };
 
 #endif // SIM_HPP

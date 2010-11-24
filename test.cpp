@@ -525,3 +525,18 @@ TEST(Sim, PopulateMap) {
   EXPECT_EQ(5,s->getMap()->getNumTowers());
   delete s;
 }
+
+TEST(Sim, Spawn) {
+  Sim* s = new Sim();
+  EXPECT_EQ(0,s->getMap()->getNumEntities());
+  for(int i=0;i<10;++i) { //10 = default numEntities in Sim
+     EXPECT_TRUE(s->spawn());
+     EXPECT_EQ(i+1,s->getMap()->getNumEntities());
+     EXPECT_EQ(s->getMap()->getStartPoint()->getPosition()[0],
+               s->getMap()->getEntity(i)->getPosition()[0]);
+     EXPECT_EQ(s->getMap()->getStartPoint()->getPosition()[1],
+               s->getMap()->getEntity(i)->getPosition()[1]);
+  }
+  EXPECT_FALSE(s->spawn());
+  delete s;
+}

@@ -7,6 +7,7 @@ Sim::Sim()
    map = new Map();
    srand(1);
    numTowers = 5;
+   numEntities = 10;
 }
 
 Map* Sim::getMap()
@@ -30,10 +31,25 @@ bool Sim::populateMap()
    return true;
 }
 
+bool Sim::spawn()
+{
+   if(map->getNumEntities() < numEntities) {
+      Entity* e = new Entity();
+      e->setPosition(map->getStartPoint()->getPosition()[0],
+                     map->getStartPoint()->getPosition()[1]);
+      map->addEntity(e);
+      return true;
+   }
+   return false;
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {
       delete map->getTower(i);
+   }
+   for(int i=0;i<map->getNumEntities();++i) {
+      delete map->getEntity(i);
    }
    delete map;
 }
