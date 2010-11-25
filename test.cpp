@@ -526,6 +526,20 @@ TEST(Sim, PopulateMap) {
   delete s;
 }
 
+TEST(Sim, CheckForGoal) {
+  Sim* s = new Sim();
+  EXPECT_EQ(0,s->entitiesAtGoal());
+  Entity* e1 = new Entity();
+  e1->setPosition(9,9);
+  s->getMap()->addEntity(e1);
+  EXPECT_EQ(1,s->entitiesAtGoal());
+  Entity* e2 = new Entity();
+  e2->setPosition(0,0);
+  s->getMap()->addEntity(e2);
+  EXPECT_EQ(1,s->entitiesAtGoal());
+  delete s,e1,e2;
+}
+
 TEST(Sim, Spawn) {
   Sim* s = new Sim();
   EXPECT_EQ(0,s->getMap()->getNumEntities());

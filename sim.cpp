@@ -43,6 +43,20 @@ bool Sim::spawn()
    return false;
 }
 
+int Sim::entitiesAtGoal()
+{
+   int entitiesAtGoal = 0;
+   int x = map->getGoalPoint()->getPosition()[0];
+   int y = map->getGoalPoint()->getPosition()[1];
+   for(int i=0;i<map->getNumEntities();++i) {
+      if(map->getEntity(i)->getPosition()[0] == x &&
+         map->getEntity(i)->getPosition()[1] == y) {
+	 entitiesAtGoal++;
+      }
+   }
+   return entitiesAtGoal;
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {

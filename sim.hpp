@@ -13,6 +13,7 @@ public:
    Map* getMap();
    bool populateMap();
    bool spawn();
+   int entitiesAtGoal();
    ~Sim();
 
 private:
