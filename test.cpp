@@ -67,6 +67,23 @@ TEST(Tower, SetTarget) {
   delete t,e;
 }
 
+TEST(Tower, NoDeadTargets) {
+  Tower* t = new Tower();
+  t->setPosition(0,0);
+  Entity *e = new Entity();
+  e->setPosition(0,1);
+  e->setHealth(0);
+  t->setTarget(e);
+  EXPECT_EQ(NULL,t->getTarget());
+  e->setHealth(-1);
+  t->setTarget(e);
+  EXPECT_EQ(NULL,t->getTarget());
+  e->setHealth(1);
+  t->setTarget(e);
+  EXPECT_EQ(e,t->getTarget());
+  delete t,e;
+}
+
 TEST(Tower, IsTargetInRange) {
   Tower* t = new Tower();
   EXPECT_FALSE(t->isTargetInRange());
