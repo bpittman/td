@@ -12,10 +12,22 @@ Sim::Sim()
 
 void Sim::tick()
 {
+   //move entities
    for(int i=0;i<map->getNumEntities();++i) {
       map->moveEntity(map->getEntity(i));
    }
+
+   //spawn new entities
    spawn();
+
+   //find targets and fire
+   for(int i=0;i<map->getNumTowers();++i) {
+      Tower *t = map->getTower(i);
+      if(!(t->isTargetAlive() && t->isTargetInRange())) {
+         t->setTarget(map->getClosestEntity(t->getPosition()[0],t->getPosition()[1]));
+      }
+      t->fireAtTarget();
+   }
 }
 
 Map* Sim::getMap()

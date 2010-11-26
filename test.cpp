@@ -655,3 +655,33 @@ TEST(Sim, TickMove) {
   }
   delete s;
 }
+
+TEST(Sim, TickFire) {
+  Sim* s = new Sim();
+  for(int i=1;i<9;++i) {
+     Path *p = new Path();
+     p->setPosition(i,i);
+     EXPECT_TRUE(s->getMap()->addPath(p));
+  }
+  Tower* t1 = new Tower();
+  t1->setPosition(1,0);
+  EXPECT_TRUE(s->getMap()->addTower(t1));
+  Tower* t2 = new Tower();
+  t2->setPosition(0,1);
+  EXPECT_TRUE(s->getMap()->addTower(t2));
+  for(int i=0;i<10;++i) { //10 = default numEntities in Sim
+     s->tick();
+     ASSERT_EQ(i+1,s->getMap()->getNumEntities());
+     if(i<4) {
+        EXPECT_EQ(i,s->getMap()->getEntity(0)->getPosition()[0]);
+        EXPECT_EQ(i,s->getMap()->getEntity(0)->getPosition()[1]);
+        EXPECT_EQ(true,s->getMap()->getEntity(0)->alive());
+     }
+     else {
+        EXPECT_EQ(4,s->getMap()->getEntity(0)->getPosition()[0]);
+        EXPECT_EQ(4,s->getMap()->getEntity(0)->getPosition()[1]);
+        EXPECT_EQ(false,s->getMap()->getEntity(0)->alive());
+     }
+  }
+  delete s;
+}
