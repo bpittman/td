@@ -621,3 +621,19 @@ TEST(Sim, TickSpawn) {
   }
   delete s;
 }
+
+TEST(Sim, TickMove) {
+  Sim* s = new Sim();
+  for(int i=1;i<9;++i) {
+     Path *p = new Path();
+     p->setPosition(i,i);
+     EXPECT_TRUE(s->getMap()->addPath(p));
+  }
+  for(int i=0;i<10;++i) { //10 = default numEntities in Sim
+     s->tick();
+     ASSERT_EQ(i+1,s->getMap()->getNumEntities());
+     EXPECT_EQ(i,s->getMap()->getEntity(0)->getPosition()[0]);
+     EXPECT_EQ(i,s->getMap()->getEntity(0)->getPosition()[1]);
+  }
+  delete s;
+}

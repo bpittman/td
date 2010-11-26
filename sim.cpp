@@ -12,6 +12,9 @@ Sim::Sim()
 
 void Sim::tick()
 {
+   for(int i=0;i<map->getNumEntities();++i) {
+      map->moveEntity(map->getEntity(i));
+   }
    spawn();
 }
 
@@ -69,6 +72,11 @@ Sim::~Sim()
    }
    for(int i=0;i<map->getNumEntities();++i) {
       delete map->getEntity(i);
+   }
+   for(int i=0;i<map->getNumPaths();++i) {
+      if(map->getPath(i)==map->getStartPoint()) continue;
+      if(map->getPath(i)==map->getGoalPoint()) continue;
+      delete map->getPath(i);
    }
    delete map;
 }
