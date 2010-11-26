@@ -562,6 +562,24 @@ TEST(Map, closestNotIncludingGoalPoint) {
   delete m,e1,e2;
 }
 
+TEST(Map, IgnoreDeadMoveEntity) {
+  Entity* e = new Entity();
+  Map* m = new Map();
+  EXPECT_TRUE(m->addEntity(e));
+
+  EXPECT_EQ(0,e->getPosition()[0]);
+  EXPECT_EQ(0,e->getPosition()[1]);
+
+  Path* p = new Path();
+  p->setPosition(0,1);
+  EXPECT_TRUE(m->addPath(p));
+  e->setHealth(0);
+  m->moveEntity(e);
+  EXPECT_EQ(0,e->getPosition()[0]);
+  EXPECT_EQ(0,e->getPosition()[1]);
+  delete m, e, p;
+}
+
 TEST(Sim, CreateSim) {
   Sim* s = NULL;
   s = new Sim();
