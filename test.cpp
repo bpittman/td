@@ -67,6 +67,19 @@ TEST(Tower, SetTarget) {
   delete t,e;
 }
 
+TEST(Tower, NullifyOnInvalidSetTarget) {
+  Tower* t = new Tower();
+  t->setPosition(0,0);
+  Entity *e = new Entity();
+  e->setPosition(0,5);
+  t->setTarget(e);
+  EXPECT_EQ(e,t->getTarget());
+  e->setPosition(0,6);
+  t->setTarget(e);
+  EXPECT_EQ(NULL,t->getTarget());
+  delete t,e;
+}
+
 TEST(Tower, NoDeadTargets) {
   Tower* t = new Tower();
   t->setPosition(0,0);
