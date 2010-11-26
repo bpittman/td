@@ -166,24 +166,6 @@ TEST(Entity, Health) {
   delete e;
 }
 
-TEST(Map, MoveEntity) {
-  Entity* e = new Entity();
-  Map* m = new Map();
-  EXPECT_TRUE(m->addEntity(e));
-
-  EXPECT_EQ(0,e->getPosition()[0]);
-  EXPECT_EQ(0,e->getPosition()[1]);
-
-  Path* p = new Path();
-  p->setPosition(0,1);
-  EXPECT_TRUE(m->addPath(p));
-
-  m->moveEntity(e);
-  EXPECT_EQ(0,e->getPosition()[0]);
-  EXPECT_EQ(1,e->getPosition()[1]);
-  delete m, e, p;
-}
-
 TEST(Path, CreatePath) {
   Path* p = NULL;
   p = new Path();
@@ -329,6 +311,24 @@ TEST(Map, addEntity) {
   ASSERT_EQ(e,m->getEntity(0));
   delete m;
   delete e;
+}
+
+TEST(Map, MoveEntity) {
+  Entity* e = new Entity();
+  Map* m = new Map();
+  EXPECT_TRUE(m->addEntity(e));
+
+  EXPECT_EQ(0,e->getPosition()[0]);
+  EXPECT_EQ(0,e->getPosition()[1]);
+
+  Path* p = new Path();
+  p->setPosition(0,1);
+  EXPECT_TRUE(m->addPath(p));
+
+  m->moveEntity(e);
+  EXPECT_EQ(0,e->getPosition()[0]);
+  EXPECT_EQ(1,e->getPosition()[1]);
+  delete m, e, p;
 }
 
 TEST(Map, objectOutOfRange) {
