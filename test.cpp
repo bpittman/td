@@ -97,6 +97,19 @@ TEST(Tower, IsTargetInRange) {
   delete t,e;
 }
 
+TEST(Tower, IsTargetAlive) {
+  Tower* t = new Tower();
+  EXPECT_FALSE(t->isTargetAlive());
+  t->setPosition(0,0);
+  Entity *e = new Entity();
+  e->setPosition(0,5);
+  t->setTarget(e);
+  EXPECT_TRUE(t->isTargetAlive());
+  e->setHealth(0);
+  EXPECT_FALSE(t->isTargetAlive());
+  delete t,e;
+}
+
 TEST(Tower, FireAtTarget) {
   Tower* t = new Tower();
   t->setPosition(0,0);

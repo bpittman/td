@@ -11,6 +11,7 @@ public:
    Tower();
    Entity* getTarget();
    void setTarget(Entity* e);
+   bool isTargetAlive();
    bool isTargetInRange();
    void fireAtTarget();
    ~Tower();

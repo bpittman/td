@@ -14,6 +14,12 @@ void Tower::setTarget(Entity* e)
    }
 }
 
+bool Tower::isTargetAlive()
+{
+   if(target==0) return false;
+   return target->alive();
+}
+
 bool Tower::isTargetInRange()
 {
    if(target==0) return false;
