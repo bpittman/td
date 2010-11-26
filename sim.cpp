@@ -10,6 +10,11 @@ Sim::Sim()
    numEntities = 10;
 }
 
+void Sim::tick()
+{
+   spawn();
+}
+
 Map* Sim::getMap()
 {
    return map;

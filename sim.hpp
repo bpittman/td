@@ -10,6 +10,7 @@ class Sim
 
 public:
    Sim();
+   void tick();
    Map* getMap();
    bool populateMap();
    bool spawn();

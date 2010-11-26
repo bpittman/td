@@ -611,3 +611,13 @@ TEST(Sim, Spawn) {
   EXPECT_FALSE(s->spawn());
   delete s;
 }
+
+TEST(Sim, TickSpawn) {
+  Sim* s = new Sim();
+  EXPECT_EQ(0,s->getMap()->getNumEntities());
+  for(int i=0;i<10;++i) { //10 = default numEntities in Sim
+     s->tick();
+     EXPECT_EQ(i+1,s->getMap()->getNumEntities());
+  }
+  delete s;
+}
