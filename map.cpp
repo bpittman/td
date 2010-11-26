@@ -125,7 +125,13 @@ Entity* Map::getClosestEntity(int x, int y)
    o.setPosition(x,y);
    Entity* closest = NULL;
    double minDist = -1, dist;
+   int gx = getGoalPoint()->getPosition()[0];
+   int gy = getGoalPoint()->getPosition()[1];
    for(int i=0; i<entities.size(); ++i) {
+      if(entities[i]->getPosition()[0] == gx &&
+         entities[i]->getPosition()[1] == gy) {
+	 continue;
+      }
       dist = o.distance(entities[i]);
       if(minDist < 0 || dist < minDist) {
          closest = entities[i];

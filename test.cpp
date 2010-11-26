@@ -505,6 +505,20 @@ TEST(Map, print) {
    delete m,path,t,e;
 }
 
+TEST(Map, closestNotIncludingGoalPoint) {
+  Map* m = new Map();
+  Entity* e1 = new Entity();
+  e1->setPosition(9,9);
+  EXPECT_TRUE(m->addEntity(e1));
+  EXPECT_EQ(NULL,m->getClosestEntity(5,5));
+  Entity* e2 = new Entity();
+  e2->setPosition(0,0);
+  EXPECT_TRUE(m->addEntity(e2));
+  EXPECT_EQ(e2,m->getClosestEntity(5,5));
+
+  delete m,e1,e2;
+}
+
 TEST(Sim, CreateSim) {
   Sim* s = NULL;
   s = new Sim();
