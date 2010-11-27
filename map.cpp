@@ -127,7 +127,7 @@ Entity* Map::getClosestEntity(int x, int y)
    double minDist = -1, dist;
    int gx = getGoalPoint()->getPosition()[0];
    int gy = getGoalPoint()->getPosition()[1];
-   for(int i=0; i<entities.size(); ++i) {
+   for(int i=entities.size()-1; i>=0; --i) {
       if(entities[i]->getPosition()[0] == gx &&
          entities[i]->getPosition()[1] == gy) {
 	 continue;

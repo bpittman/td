@@ -685,3 +685,23 @@ TEST(Sim, TickFire) {
   }
   delete s;
 }
+
+TEST(Sim, ActiveEntities) {
+  Sim* s = new Sim();
+  for(int i=1;i<9;++i) {
+     Path *p = new Path();
+     p->setPosition(i,i);
+     EXPECT_TRUE(s->getMap()->addPath(p));
+  }
+  Tower* t1 = new Tower();
+  t1->setPosition(1,0);
+  EXPECT_TRUE(s->getMap()->addTower(t1));
+  Tower* t2 = new Tower();
+  t2->setPosition(0,1);
+  EXPECT_TRUE(s->getMap()->addTower(t2));
+  do {
+     s->tick();
+  } while(s->activeEntities());
+  EXPECT_EQ(8,s->entitiesAtGoal());
+  delete s;
+}

@@ -77,6 +77,21 @@ int Sim::entitiesAtGoal()
    return entitiesAtGoal;
 }
 
+int Sim::activeEntities()
+{
+   int activeEntities = 0;
+   int x = map->getGoalPoint()->getPosition()[0];
+   int y = map->getGoalPoint()->getPosition()[1];
+   for(int i=0;i<map->getNumEntities();++i) {
+      if(!(map->getEntity(i)->getPosition()[0] == x &&
+           map->getEntity(i)->getPosition()[1] == y) &&
+	   map->getEntity(i)->alive()) {
+	 activeEntities++;
+      }
+   }
+   return activeEntities;
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {

@@ -15,6 +15,7 @@ public:
    bool populateMap();
    bool spawn();
    int entitiesAtGoal();
+   int activeEntities();
    ~Sim();
 
 private:
