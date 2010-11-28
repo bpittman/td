@@ -16,10 +16,37 @@ public:
    void fireAtTarget();
    ~Tower();
 
-private:
+protected:
    Entity* target;
    int range;
    int damage;
+};
+
+class SlowTower: public Tower
+{
+
+public:
+   SlowTower();
+   ~SlowTower();
+
+};
+
+class LongTower: public Tower
+{
+
+public:
+   LongTower();
+   ~LongTower();
+
+};
+
+class ShortTower: public Tower
+{
+
+public:
+   ShortTower();
+   ~ShortTower();
+
 };
 
 #endif // TOWER_HPP

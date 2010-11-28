@@ -45,3 +45,36 @@ Tower::~Tower()
 {
 
 }
+
+SlowTower::SlowTower()
+{
+   range = 5;
+   damage = 0;
+}
+
+SlowTower::~SlowTower()
+{
+
+}
+
+LongTower::LongTower()
+{
+   range = 10;
+   damage = 5;
+}
+
+LongTower::~LongTower()
+{
+
+}
+
+ShortTower::ShortTower()
+{
+   range = 3;
+   damage = 20;
+}
+
+ShortTower::~ShortTower()
+{
+
+}

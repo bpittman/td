@@ -46,6 +46,27 @@ TEST(Tower, CreateTower) {
   delete t;
 }
 
+TEST(Tower, CreateSlowTower) {
+  Tower* t = NULL;
+  t = new SlowTower();
+  ASSERT_TRUE(t != NULL);
+  delete t;
+}
+
+TEST(Tower, CreateLongTower) {
+  Tower* t = NULL;
+  t = new LongTower();
+  ASSERT_TRUE(t != NULL);
+  delete t;
+}
+
+TEST(Tower, CreateShortTower) {
+  Tower* t = NULL;
+  t = new ShortTower();
+  ASSERT_TRUE(t != NULL);
+  delete t;
+}
+
 TEST(Tower, SetPosition) {
   Tower* t = new Tower();
   t->setPosition(1,2);
