@@ -16,6 +16,7 @@ public:
    bool spawn();
    int entitiesAtGoal();
    int activeEntities();
+   int* getTowerList();
    ~Sim();
 
 private:

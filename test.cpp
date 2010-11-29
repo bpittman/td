@@ -726,3 +726,21 @@ TEST(Sim, ActiveEntities) {
   EXPECT_EQ(8,s->entitiesAtGoal());
   delete s;
 }
+
+TEST(Sim, TowerList) {
+  Sim* s = new Sim();
+  Tower* t1 = new Tower();
+  t1->setPosition(1,0);
+  EXPECT_TRUE(s->getMap()->addTower(t1));
+  Tower* t2 = new Tower();
+  t2->setPosition(0,1);
+  EXPECT_TRUE(s->getMap()->addTower(t2));
+  int *tlist = s->getTowerList();
+  EXPECT_EQ(tlist[0],1);
+  EXPECT_EQ(tlist[1],0);
+  EXPECT_EQ(tlist[2],0);
+  EXPECT_EQ(tlist[3],1);
+
+  delete s;
+  delete [] tlist;
+}

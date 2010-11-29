@@ -92,6 +92,19 @@ int Sim::activeEntities()
    return activeEntities;
 }
 
+int* Sim::getTowerList()
+{
+   int *tlist = NULL;
+   if(map->getNumTowers()) {
+      tlist = new int[map->getNumTowers()*2];
+      for(int i=0;i<map->getNumTowers();++i) {
+	 tlist[i*2] = map->getTower(i)->getPosition()[0];
+	 tlist[i*2+1] = map->getTower(i)->getPosition()[1];
+      }
+   }
+   return tlist;
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {
