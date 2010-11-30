@@ -30,6 +30,16 @@ void Entity::setSlowed(bool s)
    slowed = s;
 }
 
+void Entity::setPosition(int x, int y)
+{
+   if(!slowed) {
+      Object::setPosition(x,y);
+   }
+   else {
+      slowed = false;
+   }
+}
+
 Entity::~Entity()
 {
 

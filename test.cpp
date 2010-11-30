@@ -201,6 +201,23 @@ TEST(Entity, Health) {
   delete e;
 }
 
+TEST(Entity, SlowEffect) {
+  Entity* e = new Entity();
+  e->setPosition(0,0);
+  EXPECT_EQ(0,e->getPosition()[0]);
+  EXPECT_EQ(0,e->getPosition()[1]);
+  e->setSlowed(true);
+  EXPECT_TRUE(e->getSlowed());
+  e->setPosition(1,0);
+  EXPECT_FALSE(e->getSlowed());
+  EXPECT_EQ(0,e->getPosition()[0]);
+  EXPECT_EQ(0,e->getPosition()[1]);
+  e->setPosition(1,0);
+  EXPECT_EQ(1,e->getPosition()[0]);
+  EXPECT_EQ(0,e->getPosition()[1]);
+  delete e;
+}
+
 TEST(Path, CreatePath) {
   Path* p = NULL;
   p = new Path();

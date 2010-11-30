@@ -13,6 +13,7 @@ public:
    bool alive();
    bool getSlowed();
    void setSlowed(bool s);
+   void setPosition(int x, int y);
    ~Entity();
 
 private:
