@@ -105,6 +105,15 @@ int* Sim::getTowerList()
    return tlist;
 }
 
+void Sim::setTowersFromList(int* tlist, int num)
+{
+   for(int i=0;i<num/2;++i) {
+      Tower *t = new Tower;
+      t->setPosition(tlist[i*2],tlist[i*2+1]);
+      if(!map->addTower(t)) delete t;
+   }
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {

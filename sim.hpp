@@ -17,6 +17,7 @@ public:
    int entitiesAtGoal();
    int activeEntities();
    int* getTowerList();
+   void setTowersFromList(int* tlist, int num);
    ~Sim();
 
 private:
