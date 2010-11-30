@@ -52,6 +52,13 @@ SlowTower::SlowTower()
    damage = 0;
 }
 
+void SlowTower::fireAtTarget()
+{
+   if(target!=0 && isTargetInRange()) {
+      target->setSlowed(true);
+   }
+}
+
 SlowTower::~SlowTower()
 {
 

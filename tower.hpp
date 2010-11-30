@@ -27,6 +27,7 @@ class SlowTower: public Tower
 
 public:
    SlowTower();
+   void fireAtTarget();
    ~SlowTower();
 
 };

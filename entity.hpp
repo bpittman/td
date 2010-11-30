@@ -11,10 +11,13 @@ public:
    int getHealth();
    void setHealth(int h);
    bool alive();
+   bool getSlowed();
+   void setSlowed(bool s);
    ~Entity();
 
 private:
    int health;
+   bool slowed;
 };
 
 #endif // ENTITY_HPP

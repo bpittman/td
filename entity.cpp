@@ -20,6 +20,16 @@ bool Entity::alive()
    return health > 0;
 }
 
+bool Entity::getSlowed()
+{
+   return slowed;
+}
+
+void Entity::setSlowed(bool s)
+{
+   slowed = s;
+}
+
 Entity::~Entity()
 {
 

@@ -159,6 +159,20 @@ TEST(Tower, FireAtTarget) {
   delete t,e;
 }
 
+TEST(Tower, SlowEntity) {
+  SlowTower* t = new SlowTower();
+  t->setPosition(0,0);
+  Entity *e = new Entity();
+  e->setPosition(0,5);
+  t->setTarget(e);
+  EXPECT_EQ(100,e->getHealth());
+  EXPECT_FALSE(e->getSlowed());
+  t->fireAtTarget();
+  EXPECT_EQ(100,e->getHealth());
+  EXPECT_TRUE(e->getSlowed());
+  delete t,e;
+}
+
 TEST(Entity, CreateEntity) {
   Entity* e = NULL;
   e = new Entity();
