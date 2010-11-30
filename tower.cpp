@@ -1,8 +1,10 @@
+#include <stdlib.h>
+
 #include "tower.hpp"
 
 Tower::Tower()
 {
-   target = 0;
+   target = NULL;
    range = 5;
    damage = 10;
 }
@@ -13,20 +15,20 @@ void Tower::setTarget(Entity* e)
       target = e;
    }
    else {
-      target = 0;
+      target = NULL;
    }
 }
 
 bool Tower::isTargetAlive()
 {
-   if(target==0) return false;
+   if(target==NULL) return false;
    return target->alive();
 }
 
 bool Tower::isTargetInRange()
 {
-   if(target==0) return false;
-   if(distance(target)<=range) return true;
+   if(target==NULL) return false;
+   return distance(target)<=range;
 }
 
 Entity* Tower::getTarget()
@@ -36,7 +38,7 @@ Entity* Tower::getTarget()
 
 void Tower::fireAtTarget()
 {
-   if(target!=0 && isTargetInRange()) {
+   if(target!=NULL && isTargetInRange()) {
       target->setHealth(target->getHealth()-damage);
    }
 }
