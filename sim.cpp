@@ -114,6 +114,20 @@ void Sim::setTowersFromList(int* tlist, int num)
    }
 }
 
+void Sim::mutateTower()
+{
+   if(map->getNumTowers() == 0) return;
+   int i = rand() % map->getNumTowers();
+   int x = rand() % map->getSize()[0];
+   int y = rand() % map->getSize()[1];
+
+   while(!map->checkTowerPos(x,y)) {
+      x = rand() % map->getSize()[0];
+      y = rand() % map->getSize()[1];
+   }
+   map->getTower(i)->setPosition(x,y);
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {

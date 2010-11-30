@@ -18,6 +18,7 @@ public:
    int activeEntities();
    int* getTowerList();
    void setTowersFromList(int* tlist, int num);
+   void mutateTower();
    ~Sim();
 
 private:

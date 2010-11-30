@@ -23,21 +23,7 @@ const int* Map::getSize()
 //towers cannot overlap with each other, or be on a path
 bool Map::addTower(Tower* t)
 {
-   if(t->getPosition()[0] >= size[0] ||
-      t->getPosition()[1] >= size[1]) return false;
-
-   for(int i=0;i<towers.size();++i) {
-      if(towers[i]->getPosition()[0] == t->getPosition()[0] &&
-         towers[i]->getPosition()[1] == t->getPosition()[1]) {
-	 return false;
-      }
-   }
-   for(int i=0;i<paths.size();++i) {
-      if(paths[i]->getPosition()[0] == t->getPosition()[0] &&
-         paths[i]->getPosition()[1] == t->getPosition()[1]) {
-	 return false;
-      }
-   }
+   if(!checkTowerPos(t->getPosition()[0],t->getPosition()[1])) return false;
    towers.push_back(t);
    return true;
 }
@@ -230,6 +216,26 @@ std::string Map::print()
    }
    return m_final;
 }
+
+bool Map::checkTowerPos(int x, int y)
+{
+   if(x >= size[0] || y >= size[1]) return false;
+
+   for(int i=0;i<towers.size();++i) {
+      if(towers[i]->getPosition()[0] == x &&
+         towers[i]->getPosition()[1] == y) {
+	 return false;
+      }
+   }
+   for(int i=0;i<paths.size();++i) {
+      if(paths[i]->getPosition()[0] == x &&
+         paths[i]->getPosition()[1] == y) {
+	 return false;
+      }
+   }
+   return true;
+}
+
 Map::~Map()
 {
 

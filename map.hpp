@@ -18,6 +18,7 @@ public:
    bool addTower(Tower* t);
    bool addEntity(Entity* e);
    bool addPath(Path* p);
+   bool checkTowerPos(int x, int y);
    Tower* getTower(int i);
    Entity* getEntity(int i);
    Path* getPath(int i);
