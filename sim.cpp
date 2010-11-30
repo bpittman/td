@@ -5,7 +5,6 @@
 Sim::Sim()
 {
    map = new Map();
-   srand(1);
    numTowers = 5;
    numEntities = 10;
 }
@@ -126,6 +125,40 @@ void Sim::mutateTower()
       y = rand() % map->getSize()[1];
    }
    map->getTower(i)->setPosition(x,y);
+}
+
+void Sim::crossoverTowers(Sim* s1, Sim* s2)
+{
+   if(s1==NULL || s2==NULL) return;
+   int x1,y1, x2,y2;
+   int minTowers = min(s1->getMap()->getNumTowers(),s2->getMap()->getNumTowers());
+   for(int i=0;i<minTowers;++i) {
+      x1 = s1->getMap()->getTower(i)->getPosition()[0];
+      y1 = s1->getMap()->getTower(i)->getPosition()[1];
+      x2 = s2->getMap()->getTower(i)->getPosition()[0];
+      y2 = s2->getMap()->getTower(i)->getPosition()[1];
+      Tower* t = new Tower();
+      //try to grab a tower position from sim1 or sim2
+      if((rand()%2==0) && map->checkTowerPos(x1,y1)) {
+         t->setPosition(x1,y1);
+	 map->addTower(t);
+      }
+      else if(map->checkTowerPos(x2,y2)) {
+         t->setPosition(x2,y2);
+	 map->addTower(t);
+      }
+      //if both those positions are taken, punt and place it randomly
+      else {
+	 x1 = rand() % map->getSize()[0];
+	 y1 = rand() % map->getSize()[1];
+	 while(!map->checkTowerPos(x1,y1)) {
+	    x1 = rand() % map->getSize()[0];
+	    y1 = rand() % map->getSize()[1];
+	 }
+	 t->setPosition(x1,y1);
+	 map->addTower(t);
+      }
+   }
 }
 
 Sim::~Sim()

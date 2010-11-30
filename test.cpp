@@ -759,6 +759,7 @@ TEST(Sim, ActiveEntities) {
 }
 
 TEST(Sim, MutateTower) {
+  srand(1);
   Sim* s = new Sim();
   int list[8] = {0,1, 1,0, 2,0, 3,1};
   s->setTowersFromList(list,8);
@@ -791,6 +792,68 @@ TEST(Sim, MutateTower) {
   EXPECT_EQ(7,s->getMap()->getTower(3)->getPosition()[1]);
 
   delete s;
+}
+
+TEST(Sim, CrossoverTowers) {
+  srand(1);
+  Sim* s1 = new Sim();
+  s1->populateMap();
+  ASSERT_EQ(5,s1->getMap()->getNumTowers());
+
+  Sim* s2 = new Sim();
+  s2->populateMap();
+  ASSERT_EQ(5,s2->getMap()->getNumTowers());
+
+  Sim* s3 = new Sim();
+  EXPECT_EQ(0,s3->getMap()->getNumTowers());
+  s3->crossoverTowers(s1,s2);
+  ASSERT_EQ(5,s3->getMap()->getNumTowers());
+
+  EXPECT_EQ(3,s1->getMap()->getTower(0)->getPosition()[0]);
+  EXPECT_EQ(6,s1->getMap()->getTower(0)->getPosition()[1]);
+
+  EXPECT_EQ(7,s1->getMap()->getTower(1)->getPosition()[0]);
+  EXPECT_EQ(5,s1->getMap()->getTower(1)->getPosition()[1]);
+
+  EXPECT_EQ(3,s1->getMap()->getTower(2)->getPosition()[0]);
+  EXPECT_EQ(5,s1->getMap()->getTower(2)->getPosition()[1]);
+
+  EXPECT_EQ(6,s1->getMap()->getTower(3)->getPosition()[0]);
+  EXPECT_EQ(2,s1->getMap()->getTower(3)->getPosition()[1]);
+
+  EXPECT_EQ(9,s1->getMap()->getTower(4)->getPosition()[0]);
+  EXPECT_EQ(1,s1->getMap()->getTower(4)->getPosition()[1]);
+
+  EXPECT_EQ(2,s2->getMap()->getTower(0)->getPosition()[0]);
+  EXPECT_EQ(7,s2->getMap()->getTower(0)->getPosition()[1]);
+
+  EXPECT_EQ(0,s2->getMap()->getTower(1)->getPosition()[0]);
+  EXPECT_EQ(9,s2->getMap()->getTower(1)->getPosition()[1]);
+
+  EXPECT_EQ(3,s2->getMap()->getTower(2)->getPosition()[0]);
+  EXPECT_EQ(6,s2->getMap()->getTower(2)->getPosition()[1]);
+
+  EXPECT_EQ(0,s2->getMap()->getTower(3)->getPosition()[0]);
+  EXPECT_EQ(6,s2->getMap()->getTower(3)->getPosition()[1]);
+
+  EXPECT_EQ(2,s2->getMap()->getTower(4)->getPosition()[0]);
+  EXPECT_EQ(6,s2->getMap()->getTower(4)->getPosition()[1]);
+
+  EXPECT_EQ(2,s3->getMap()->getTower(0)->getPosition()[0]);
+  EXPECT_EQ(7,s3->getMap()->getTower(0)->getPosition()[1]);
+
+  EXPECT_EQ(7,s3->getMap()->getTower(1)->getPosition()[0]);
+  EXPECT_EQ(5,s3->getMap()->getTower(1)->getPosition()[1]);
+
+  EXPECT_EQ(3,s3->getMap()->getTower(2)->getPosition()[0]);
+  EXPECT_EQ(6,s3->getMap()->getTower(2)->getPosition()[1]);
+
+  EXPECT_EQ(0,s3->getMap()->getTower(3)->getPosition()[0]);
+  EXPECT_EQ(6,s3->getMap()->getTower(3)->getPosition()[1]);
+
+  EXPECT_EQ(9,s3->getMap()->getTower(4)->getPosition()[0]);
+  EXPECT_EQ(1,s3->getMap()->getTower(4)->getPosition()[1]);
+  delete s1, s2, s3;
 }
 
 TEST(Sim, TowerList) {
