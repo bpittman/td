@@ -639,6 +639,16 @@ TEST(Sim, CreateSim) {
   delete s;
 }
 
+TEST(Sim, CreateBigSim) {
+  BigSim* s = NULL;
+  s = new BigSim();
+  ASSERT_TRUE(s != NULL);
+  EXPECT_EQ(50,s->getMap()->getSize()[0]);
+  EXPECT_EQ(50,s->getMap()->getSize()[1]);
+  EXPECT_EQ(50,s->getMap()->getNumPaths());
+  delete s;
+}
+
 TEST(Sim, CreateMap) {
   Sim* s = new Sim();
   ASSERT_TRUE(s->getMap() != NULL);

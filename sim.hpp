@@ -29,10 +29,20 @@ public:
    void crossoverTowers(Sim* s1, Sim* s2);
    ~Sim();
 
-private:
+protected:
    Map* map;
    int numTowers;
    int numEntities;
+};
+
+
+class BigSim: public Sim
+{
+
+public:
+   BigSim();
+   ~BigSim();
+
 };
 
 #endif // SIM_HPP

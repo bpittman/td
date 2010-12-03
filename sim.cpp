@@ -176,3 +176,23 @@ Sim::~Sim()
    }
    delete map;
 }
+
+BigSim::BigSim()
+{
+   map = new Map();
+   map->setSize(50,50);
+   map->setStartPoint(0,0);
+   map->setGoalPoint(49,49);
+   for(int i=1;i<map->getSize()[0]-1;++i) {
+      Path* p = new Path();
+      p->setPosition(i,i);
+      map->addPath(p);
+   }
+   numTowers = 15;
+   numEntities = 100;
+}
+
+BigSim::~BigSim()
+{
+
+}
