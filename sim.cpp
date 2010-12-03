@@ -180,6 +180,8 @@ Sim::~Sim()
 
 BigSim::BigSim()
 {
+   numTowers = 15;
+   numEntities = 100;
    map = new Map();
    map->setSize(50,50);
    map->setStartPoint(0,0);
@@ -189,8 +191,8 @@ BigSim::BigSim()
       p->setPosition(i,i);
       map->addPath(p);
    }
-   numTowers = 15;
-   numEntities = 100;
+   populateMap();
+
 }
 
 BigSim::~BigSim()

@@ -649,6 +649,21 @@ TEST(Sim, CreateBigSim) {
   delete s;
 }
 
+TEST(Sim, RunBigSim) {
+  srand(1);
+  BigSim* s = NULL;
+  s = new BigSim();
+  ASSERT_TRUE(s != NULL);
+  int ticks = 0;
+  while(s->activeEntities()) {
+     s->tick();
+     ticks++;
+  }
+  EXPECT_EQ(149,ticks);
+  EXPECT_EQ(99,s->entitiesAtGoal());
+  delete s;
+}
+
 TEST(Sim, CreateMap) {
   Sim* s = new Sim();
   ASSERT_TRUE(s->getMap() != NULL);
