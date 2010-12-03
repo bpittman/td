@@ -88,6 +88,7 @@ int Sim::activeEntities()
 	 activeEntities++;
       }
    }
+   activeEntities += numEntities - map->getNumEntities();
    return activeEntities;
 }
 
