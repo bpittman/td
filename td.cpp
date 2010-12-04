@@ -19,10 +19,10 @@ int main(int argc, char **argv)
    std::vector<BigSim*> *temp;
    std::map<std::string,BigSim*> *tempMap;
 
-   int poolSize = 1000;
-   int tourneySize = 4;
-   int tournaments = 800;
-   int iterations = 100;
+   int poolSize = 300;
+   int tourneySize = 8;
+   int tournaments = 200;
+   int iterations = 10;
    int oldPoolSize, best, r;
    BigSim* bestSim;
    
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
       double prevScore = 0;
       while(pool->size() < poolSize) {
          BigSim* sim = new BigSim;
-	 if(rand()>.9) {
+	 if(rand()>.5) {
 	    int i = rand()%oldPoolSize;
             sim->setTowersFromList(pool->at(i)->getTowerList(),
 	                           pool->at(i)->getMap()->getNumTowers());
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	    prevScore = (pool->at(i)->entitiesAtGoal()+pool->at(j)->entitiesAtGoal())/2.;
 	 }
 	 while(sim->activeEntities()) sim->tick();
-	 if(poolMap->find(sim->getTowerListString())!=poolMap->end()) {
+	 if(sim->entitiesAtGoal() > prevScore) {
 	    delete sim;
 	 }
 	 else {
