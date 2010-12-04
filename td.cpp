@@ -1,76 +1,119 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include "sim.hpp"
+
+typedef std::pair<std::string, BigSim*> SimPair;
 
 int main(int argc, char **argv)
 {
    srand(1);
-   std::vector<BigSim*> pool;
-   int poolSize = 100;
-   int oldPoolSize;
+   std::vector<BigSim*> *pool = new std::vector<BigSim*>;
+   std::map<std::string,BigSim*> *poolMap = new std::map<std::string,BigSim*>;
 
+   std::vector<BigSim*> *winners = new std::vector<BigSim*>;
+   std::map<std::string,BigSim*> *winnersMap = new std::map<std::string,BigSim*>;
+
+   std::vector<BigSim*> *temp;
+   std::map<std::string,BigSim*> *tempMap;
+
+   int poolSize = 1000;
+   int tourneySize = 4;
+   int tournaments = 800;
+   int iterations = 100;
+   int oldPoolSize, best, r;
+   BigSim* bestSim;
+   
    //create Sim pool
-   for(int i=0;i<poolSize;++i) {
+   while(pool->size() < poolSize) {
       BigSim* sim = new BigSim;
-      pool.push_back(sim);
-      while(sim->activeEntities()) sim->tick();
+      
+      if(poolMap->find(sim->getTowerListString())==poolMap->end()) {
+         while(sim->activeEntities()) sim->tick();
+         pool->push_back(sim);
+	 poolMap->insert(SimPair(sim->getTowerListString(),sim));
+      }
+      else {
+         delete sim;
+      }
    }
 
-   for(int iter=0;iter<10;++iter) {
+   for(int iter=0;iter<iterations;++iter) {
 
       //find average
       double avg=0;
-      for(int i=0;i<pool.size();++i) {
-         avg+=pool[i]->entitiesAtGoal();
+      for(int i=0;i<pool->size();++i) {
+         avg+=pool->at(i)->entitiesAtGoal();
       }
-      avg/=pool.size();
+      avg/=pool->size();
       std::cout << avg << std::endl;
 
       //remove some of the worst sims
-      for(int i=0;i<pool.size();++i) {
-         if(pool[i]->entitiesAtGoal() > avg) {
-	    delete pool[i];
-	    pool.erase(pool.begin()+i);
+      winners->clear();
+      winnersMap->clear();
+      for(int i=0;i<tournaments;++i) {
+         best = 100;
+         bestSim = NULL;
+         for(int j=0;j<tourneySize;++j) {
+	    do {
+	       r = rand()%pool->size();
+	    } while(winnersMap->find(pool->at(r)->getTowerListString())!=winnersMap->end());
+            if(bestSim == NULL || pool->at(r)->entitiesAtGoal() <= best) {
+	       bestSim = pool->at(r);
+	       best = pool->at(r)->entitiesAtGoal();
+	    }
 	 }
+         winners->push_back(bestSim);
+	 winnersMap->insert(SimPair(bestSim->getTowerListString(),bestSim));
       }
 
+      pool->clear();
+      poolMap->clear();
+      temp = pool;
+      tempMap = poolMap;
+      pool = winners;
+      poolMap = winnersMap;
+      winners = temp;
+      winnersMap = tempMap;
+
       //mutate/crossover to refill pool
-      int oldPoolSize = pool.size();
+      int oldPoolSize = pool->size();
       double prevScore = 0;
-      while(pool.size() < poolSize) {
+      while(pool->size() < poolSize) {
          BigSim* sim = new BigSim;
-	 if(rand()>.5) {
+	 if(rand()>.9) {
 	    int i = rand()%oldPoolSize;
-            sim->setTowersFromList(pool[i]->getTowerList(),
-	                           pool[i]->getMap()->getNumTowers());
+            sim->setTowersFromList(pool->at(i)->getTowerList(),
+	                           pool->at(i)->getMap()->getNumTowers());
 	    sim->mutateTower();
-	    prevScore = pool[i]->entitiesAtGoal();
+	    prevScore = pool->at(i)->entitiesAtGoal();
 	 }
 	 else {
 	    int i = rand()%oldPoolSize;
 	    int j = rand()%oldPoolSize;
-            sim->crossoverTowers(pool[i],pool[j]);
-	    prevScore = (pool[i]->entitiesAtGoal()+pool[j]->entitiesAtGoal())/2.;
+            sim->crossoverTowers(pool->at(i),pool->at(j));
+	    prevScore = (pool->at(i)->entitiesAtGoal()+pool->at(j)->entitiesAtGoal())/2.;
 	 }
 	 while(sim->activeEntities()) sim->tick();
-	 if(0) {
+	 if(poolMap->find(sim->getTowerListString())!=poolMap->end()) {
 	    delete sim;
 	 }
 	 else {
-	    pool.push_back(sim);
+	    pool->push_back(sim);
+	    poolMap->insert(SimPair(sim->getTowerListString(),sim));
 	 }
       }
    }
 
    //find & print best Sim
-   int best = 100;
-   BigSim* bestSim = NULL;
+   best = 100;
+   bestSim = NULL;
    for(int i=0;i<poolSize;++i) {
-      if(pool[i]->entitiesAtGoal() < best) {
-         best = pool[i]->entitiesAtGoal();
-	 bestSim = pool[i];
+      if(pool->at(i)->entitiesAtGoal() < best) {
+         best = pool->at(i)->entitiesAtGoal();
+	 bestSim = pool->at(i);
       }
    }
 
