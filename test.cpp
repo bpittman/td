@@ -78,6 +78,8 @@ TEST(Tower, SetPosition) {
 TEST(Tower, SetTarget) {
   Tower* t = new Tower();
   t->setPosition(0,0);
+  t->setTarget(NULL);
+  EXPECT_EQ(NULL,t->getTarget());
   Entity *e = new Entity();
   e->setPosition(0,6);
   t->setTarget(e);

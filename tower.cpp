@@ -12,6 +12,7 @@ Tower::Tower()
 
 void Tower::setTarget(Entity* e)
 {
+   if(e==NULL) return;
    if(distance(e)<=range && e->alive()) {
       target = e;
    }
