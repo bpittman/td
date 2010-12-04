@@ -27,12 +27,15 @@ public:
    void setTowersFromList(int* tlist, int num);
    void mutateTower();
    void crossoverTowers(Sim* s1, Sim* s2);
+   void setSpawnPerTick(int s);
+   int getSpawnPerTick();
    ~Sim();
 
 protected:
    Map* map;
    int numTowers;
    int numEntities;
+   int spawnPerTick;
 };
 
 

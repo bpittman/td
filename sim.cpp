@@ -7,6 +7,7 @@ Sim::Sim()
    map = new Map();
    numTowers = 5;
    numEntities = 10;
+   spawnPerTick = 1;
 }
 
 void Sim::tick()
@@ -57,14 +58,18 @@ bool Sim::populateMap()
 
 bool Sim::spawn()
 {
-   if(map->getNumEntities() < numEntities) {
-      Entity* e = new Entity();
-      e->setPosition(map->getStartPoint()->getPosition()[0],
-                     map->getStartPoint()->getPosition()[1]);
-      map->addEntity(e);
-      return true;
+   for(int i=0;i<spawnPerTick;++i) {
+      if(map->getNumEntities() < numEntities) {
+         Entity* e = new Entity();
+         e->setPosition(map->getStartPoint()->getPosition()[0],
+                        map->getStartPoint()->getPosition()[1]);
+         map->addEntity(e);
+      }
+      else {
+         return false;
+      }
    }
-   return false;
+   return true;
 }
 
 int Sim::entitiesAtGoal()
@@ -173,6 +178,17 @@ void Sim::crossoverTowers(Sim* s1, Sim* s2)
    }
 }
 
+
+void Sim::setSpawnPerTick(int s)
+{
+   spawnPerTick = s;
+}
+
+int Sim::getSpawnPerTick()
+{
+   return spawnPerTick;
+}
+
 Sim::~Sim()
 {
    for(int i=0;i<map->getNumTowers();++i) {
@@ -193,6 +209,7 @@ BigSim::BigSim()
 {
    numTowers = 15;
    numEntities = 100;
+   spawnPerTick = 2;
    map = new Map();
    map->setSize(50,50);
    map->setStartPoint(0,0);

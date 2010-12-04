@@ -731,8 +731,8 @@ TEST(Sim, RunBigSim) {
      s->tick();
      ticks++;
   }
-  EXPECT_EQ(149,ticks);
-  EXPECT_EQ(98,s->entitiesAtGoal());
+  EXPECT_EQ(99,ticks);
+  EXPECT_EQ(99,s->entitiesAtGoal());
   delete s;
 }
 
@@ -999,5 +999,27 @@ TEST(Sim, SetTowersFromList) {
   EXPECT_EQ(3,s->getMap()->getTower(3)->getPosition()[0]);
   EXPECT_EQ(1,s->getMap()->getTower(3)->getPosition()[1]);
   EXPECT_EQ(SHORT_TOWER,s->getMap()->getTower(3)->getType());
+  delete s;
+}
+
+TEST(Sim, SpawnPerTick) {
+  Sim* s = new Sim();
+  EXPECT_EQ(0,s->getMap()->getNumEntities());
+  EXPECT_EQ(1,s->getSpawnPerTick());
+  s->setSpawnPerTick(2);
+  EXPECT_EQ(2,s->getSpawnPerTick());
+  for(int i=0;i<5;++i) { //10 = default numEntities in Sim
+     EXPECT_TRUE(s->spawn());
+     EXPECT_EQ((i+1)*2,s->getMap()->getNumEntities());
+     EXPECT_EQ(s->getMap()->getStartPoint()->getPosition()[0],
+               s->getMap()->getEntity(i*2)->getPosition()[0]);
+     EXPECT_EQ(s->getMap()->getStartPoint()->getPosition()[1],
+               s->getMap()->getEntity(i*2)->getPosition()[1]);
+     EXPECT_EQ(s->getMap()->getStartPoint()->getPosition()[0],
+               s->getMap()->getEntity((i*2)+1)->getPosition()[0]);
+     EXPECT_EQ(s->getMap()->getStartPoint()->getPosition()[1],
+               s->getMap()->getEntity((i*2)+1)->getPosition()[1]);
+  }
+  EXPECT_FALSE(s->spawn());
   delete s;
 }
