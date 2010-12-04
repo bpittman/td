@@ -40,12 +40,17 @@ bool Sim::populateMap()
    int y = map->getSize()[1];
    int xx,yy;
    if(x*y<numTowers) return false; //FIXME: this should count empty squares
+   int i=0;
    while(map->getNumTowers()<numTowers) {
       xx = rand() % x;
       yy = rand() % y;
-      Tower *t = new Tower;
+      Tower *t;
+      if(i<2) t = new SlowTower;
+      else if(i%2) t = new ShortTower;
+      else t = new LongTower;
       t->setPosition(xx,yy);
       if(!map->addTower(t)) delete t;
+      i++;
    }
    return true;
 }

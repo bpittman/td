@@ -682,7 +682,7 @@ TEST(Sim, RunBigSim) {
      ticks++;
   }
   EXPECT_EQ(149,ticks);
-  EXPECT_EQ(99,s->entitiesAtGoal());
+  EXPECT_EQ(98,s->entitiesAtGoal());
   delete s;
 }
 
@@ -697,6 +697,11 @@ TEST(Sim, PopulateMap) {
   EXPECT_EQ(0,s->getMap()->getNumTowers());
   EXPECT_TRUE(s->populateMap());
   EXPECT_EQ(5,s->getMap()->getNumTowers());
+  EXPECT_EQ(SLOW_TOWER,s->getMap()->getTower(0)->getType());
+  EXPECT_EQ(SLOW_TOWER,s->getMap()->getTower(1)->getType());
+  EXPECT_EQ(LONG_TOWER,s->getMap()->getTower(2)->getType());
+  EXPECT_EQ(SHORT_TOWER,s->getMap()->getTower(3)->getType());
+  EXPECT_EQ(LONG_TOWER,s->getMap()->getTower(4)->getType());
   delete s;
 }
 
