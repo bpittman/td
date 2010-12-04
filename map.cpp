@@ -183,7 +183,7 @@ std::string Map::print()
    std::string m[size[0]][size[1]], m_final;
    for(int i=0;i<size[0];++i) {
       for(int j=0;j<size[1];++j) {
-         m[i][j] = 'X';
+         m[i][j] = '.';
       }
    }
 
