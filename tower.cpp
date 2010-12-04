@@ -4,6 +4,7 @@
 
 Tower::Tower()
 {
+   type = TOWER;
    target = NULL;
    range = 5;
    damage = 10;
@@ -43,6 +44,11 @@ void Tower::fireAtTarget()
    }
 }
 
+TowerType Tower::getType()
+{
+   return type;
+}
+
 int Tower::getRange()
 {
    return range;
@@ -60,6 +66,7 @@ Tower::~Tower()
 
 SlowTower::SlowTower()
 {
+   type = SLOW_TOWER;
    range = 5;
    damage = 0;
 }
@@ -78,6 +85,7 @@ SlowTower::~SlowTower()
 
 LongTower::LongTower()
 {
+   type = LONG_TOWER;
    range = 10;
    damage = 5;
 }
@@ -89,6 +97,7 @@ LongTower::~LongTower()
 
 ShortTower::ShortTower()
 {
+   type = SHORT_TOWER;
    range = 3;
    damage = 20;
 }

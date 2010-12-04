@@ -96,10 +96,11 @@ int* Sim::getTowerList()
 {
    int *tlist = NULL;
    if(map->getNumTowers()) {
-      tlist = new int[map->getNumTowers()*2];
+      tlist = new int[map->getNumTowers()*3];
       for(int i=0;i<map->getNumTowers();++i) {
-	 tlist[i*2] = map->getTower(i)->getPosition()[0];
-	 tlist[i*2+1] = map->getTower(i)->getPosition()[1];
+	 tlist[i*3] = map->getTower(i)->getPosition()[0];
+	 tlist[i*3+1] = map->getTower(i)->getPosition()[1];
+	 tlist[i*3+2] = map->getTower(i)->getType();
       }
    }
    return tlist;
@@ -107,9 +108,14 @@ int* Sim::getTowerList()
 
 void Sim::setTowersFromList(int* tlist, int num)
 {
-   for(int i=0;i<num/2;++i) {
-      Tower *t = new Tower;
-      t->setPosition(tlist[i*2],tlist[i*2+1]);
+   for(int i=0;i<num/3;++i) {
+      Tower *t;
+      if(tlist[i*3+2] == TOWER) t = new Tower;
+      else if(tlist[i*3+2] == SLOW_TOWER) t = new SlowTower;
+      else if(tlist[i*3+2] == LONG_TOWER) t = new LongTower;
+      else if(tlist[i*3+2] == SHORT_TOWER) t = new ShortTower;
+
+      t->setPosition(tlist[i*3],tlist[i*3+1]);
       if(!map->addTower(t)) delete t;
    }
 }

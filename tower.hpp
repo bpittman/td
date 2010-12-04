@@ -4,6 +4,8 @@
 #include "object.hpp"
 #include "entity.hpp"
 
+enum TowerType { TOWER, SLOW_TOWER, LONG_TOWER, SHORT_TOWER };
+
 class Tower: public Object
 {
 
@@ -14,6 +16,7 @@ public:
    bool isTargetAlive();
    bool isTargetInRange();
    void fireAtTarget();
+   TowerType getType();
    int getRange();
    int getDamage();
    ~Tower();
@@ -22,6 +25,7 @@ protected:
    Entity* target;
    int range;
    int damage;
+   TowerType type;
 };
 
 class SlowTower: public Tower

@@ -808,8 +808,8 @@ TEST(Sim, ActiveEntities) {
 TEST(Sim, MutateTower) {
   srand(1);
   Sim* s = new Sim();
-  int list[8] = {0,1, 1,0, 2,0, 3,1};
-  s->setTowersFromList(list,8);
+  int list[12] = {0,1,TOWER, 1,0,TOWER, 2,0,TOWER, 3,1,TOWER};
+  s->setTowersFromList(list,12);
   ASSERT_EQ(4,s->getMap()->getNumTowers());
 
   EXPECT_EQ(0,s->getMap()->getTower(0)->getPosition()[0]);
@@ -908,35 +908,41 @@ TEST(Sim, TowerList) {
   Tower* t1 = new Tower();
   t1->setPosition(1,0);
   EXPECT_TRUE(s->getMap()->addTower(t1));
-  Tower* t2 = new Tower();
+  SlowTower* t2 = new SlowTower();
   t2->setPosition(0,1);
   EXPECT_TRUE(s->getMap()->addTower(t2));
   int *tlist = s->getTowerList();
   EXPECT_EQ(tlist[0],1);
   EXPECT_EQ(tlist[1],0);
-  EXPECT_EQ(tlist[2],0);
-  EXPECT_EQ(tlist[3],1);
+  EXPECT_EQ(tlist[2],TOWER);
+  EXPECT_EQ(tlist[3],0);
+  EXPECT_EQ(tlist[4],1);
+  EXPECT_EQ(tlist[5],SLOW_TOWER);
 
-  delete s;
+  delete s, t1, t2;
   delete [] tlist;
 }
 
 TEST(Sim, SetTowersFromList) {
   Sim* s = new Sim();
-  int list[8] = {0,1, 1,0, 2,0, 3,1};
-  s->setTowersFromList(list,8);
+  int list[12] = {0,1,TOWER, 1,0,SLOW_TOWER, 2,0,LONG_TOWER, 3,1,SHORT_TOWER};
+  s->setTowersFromList(list,12);
   ASSERT_EQ(4,s->getMap()->getNumTowers());
 
   EXPECT_EQ(0,s->getMap()->getTower(0)->getPosition()[0]);
   EXPECT_EQ(1,s->getMap()->getTower(0)->getPosition()[1]);
+  EXPECT_EQ(TOWER,s->getMap()->getTower(0)->getType());
 
   EXPECT_EQ(1,s->getMap()->getTower(1)->getPosition()[0]);
   EXPECT_EQ(0,s->getMap()->getTower(1)->getPosition()[1]);
+  EXPECT_EQ(SLOW_TOWER,s->getMap()->getTower(1)->getType());
 
   EXPECT_EQ(2,s->getMap()->getTower(2)->getPosition()[0]);
   EXPECT_EQ(0,s->getMap()->getTower(2)->getPosition()[1]);
+  EXPECT_EQ(LONG_TOWER,s->getMap()->getTower(2)->getType());
 
   EXPECT_EQ(3,s->getMap()->getTower(3)->getPosition()[0]);
   EXPECT_EQ(1,s->getMap()->getTower(3)->getPosition()[1]);
+  EXPECT_EQ(SHORT_TOWER,s->getMap()->getTower(3)->getType());
   delete s;
 }
