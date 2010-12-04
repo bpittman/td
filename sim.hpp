@@ -24,6 +24,7 @@ public:
    int entitiesAtGoal();
    int activeEntities();
    int* getTowerList();
+   std::string getTowerListString();
    void setTowersFromList(int* tlist, int num);
    void mutateTower();
    void crossoverTowers(Sim* s1, Sim* s2);

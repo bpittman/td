@@ -1023,3 +1023,17 @@ TEST(Sim, SpawnPerTick) {
   EXPECT_FALSE(s->spawn());
   delete s;
 }
+
+TEST(Sim, TowersListString) {
+  Sim* s = new Sim();
+  Tower* t1 = new Tower();
+  t1->setPosition(1,0);
+  EXPECT_TRUE(s->getMap()->addTower(t1));
+  SlowTower* t2 = new SlowTower();
+  t2->setPosition(0,1);
+  EXPECT_TRUE(s->getMap()->addTower(t2));
+  std::string t = s->getTowerListString();
+  EXPECT_EQ(t,"1 0 0 0 1 1");
+
+  delete s, t1, t2;
+}

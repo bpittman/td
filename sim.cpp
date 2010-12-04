@@ -1,4 +1,7 @@
 #include <stdlib.h>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #include "sim.hpp"
 
@@ -100,6 +103,25 @@ int Sim::activeEntities()
    }
    activeEntities += numEntities - map->getNumEntities();
    return activeEntities;
+}
+
+std::string Sim::getTowerListString()
+{
+   std::stringstream t;
+   int *tlist = NULL;
+   if(map->getNumTowers()) {
+      tlist = new int[map->getNumTowers()*3];
+      for(int i=0;i<map->getNumTowers();++i) {
+	 tlist[i*3] = map->getTower(i)->getPosition()[0];
+	 tlist[i*3+1] = map->getTower(i)->getPosition()[1];
+	 tlist[i*3+2] = map->getTower(i)->getType();
+	 t << map->getTower(i)->getPosition()[0] << ' '
+	   << map->getTower(i)->getPosition()[1] << ' '
+	   << map->getTower(i)->getType();
+	 if(i<map->getNumTowers()-1) t << ' ';
+      }
+   }
+   return t.str();
 }
 
 int* Sim::getTowerList()
