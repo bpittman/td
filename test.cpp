@@ -173,6 +173,28 @@ TEST(Tower, SlowEntity) {
   delete t,e;
 }
 
+TEST(Tower, GetRange) {
+  Tower* t1 = new Tower();
+  SlowTower* t2 = new SlowTower();
+  LongTower* t3 = new LongTower();
+  ShortTower* t4 = new ShortTower();
+  EXPECT_EQ(5,t1->getRange());
+  EXPECT_EQ(5,t2->getRange());
+  EXPECT_EQ(10,t3->getRange());
+  EXPECT_EQ(3,t4->getRange());
+}
+
+TEST(Tower, GetDamage) {
+  Tower* t1 = new Tower();
+  SlowTower* t2 = new SlowTower();
+  LongTower* t3 = new LongTower();
+  ShortTower* t4 = new ShortTower();
+  EXPECT_EQ(10,t1->getDamage());
+  EXPECT_EQ(0,t2->getDamage());
+  EXPECT_EQ(5,t3->getDamage());
+  EXPECT_EQ(20,t4->getDamage());
+}
+
 TEST(Entity, CreateEntity) {
   Entity* e = NULL;
   e = new Entity();

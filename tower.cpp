@@ -43,6 +43,16 @@ void Tower::fireAtTarget()
    }
 }
 
+int Tower::getRange()
+{
+   return range;
+}
+
+int Tower::getDamage()
+{
+   return damage;
+}
+
 Tower::~Tower()
 {
 

@@ -14,6 +14,8 @@ public:
    bool isTargetAlive();
    bool isTargetInRange();
    void fireAtTarget();
+   int getRange();
+   int getDamage();
    ~Tower();
 
 protected:
