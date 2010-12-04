@@ -193,8 +193,13 @@ std::string Map::print()
    }
 
    for(int i=0;i<towers.size();++i) {
+      char c;
+      if(towers[i]->getType()==TOWER) c = 'T';
+      else if(towers[i]->getType()==SLOW_TOWER) c = 'W';
+      else if(towers[i]->getType()==LONG_TOWER) c = 'L';
+      else if(towers[i]->getType()==SHORT_TOWER) c = 'H';
       m[towers[i]->getPosition()[0]]
-       [towers[i]->getPosition()[1]] = 'T';
+       [towers[i]->getPosition()[1]] = c;
    }
 
    for(int i=0;i<entities.size();++i) {

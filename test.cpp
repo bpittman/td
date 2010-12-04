@@ -589,9 +589,9 @@ TEST(Map, print) {
       ". . . . . . . . . . \n"
       ". . . . . . . . . G \n",
       p);
-   Tower* t= new Tower();
-   t->setPosition(1,2);
-   EXPECT_TRUE(m->addTower(t));
+   Tower* t1= new Tower();
+   t1->setPosition(1,2);
+   EXPECT_TRUE(m->addTower(t1));
    p = m->print();
    EXPECT_EQ(
       "S . . . . . . . . . \n"
@@ -621,7 +621,55 @@ TEST(Map, print) {
       ". . . . . . . . . . \n"
       ". . . . . . . . . G \n",
       p);
-   delete m,path,t,e;
+   Tower* t2= new SlowTower();
+   t2->setPosition(2,1);
+   EXPECT_TRUE(m->addTower(t2));
+   p = m->print();
+   EXPECT_EQ(
+      "S . . . . . . . . . \n"
+      ". E T . . . . . . . \n"
+      ". W . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . G \n",
+      p);
+   Tower* t3= new LongTower();
+   t3->setPosition(3,2);
+   EXPECT_TRUE(m->addTower(t3));
+   p = m->print();
+   EXPECT_EQ(
+      "S . . . . . . . . . \n"
+      ". E T . . . . . . . \n"
+      ". W . . . . . . . . \n"
+      ". . L . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . G \n",
+      p);
+   Tower* t4= new ShortTower();
+   t4->setPosition(1,3);
+   EXPECT_TRUE(m->addTower(t4));
+   p = m->print();
+   EXPECT_EQ(
+      "S . . . . . . . . . \n"
+      ". E T H . . . . . . \n"
+      ". W . . . . . . . . \n"
+      ". . L . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . . \n"
+      ". . . . . . . . . G \n",
+      p);
+   delete m,path,t1,t2,t3,t4,e;
 }
 
 TEST(Map, closestNotIncludingGoalPoint) {
