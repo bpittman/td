@@ -29,6 +29,7 @@ int main(int argc, char **argv)
    //create Sim pool
    while(pool->size() < poolSize) {
       BigSim* sim = new BigSim;
+      sim->populateMap();
       
       if(poolMap->find(sim->getTowerListString())==poolMap->end()) {
          while(sim->activeEntities()) sim->tick();
