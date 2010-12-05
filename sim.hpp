@@ -22,6 +22,7 @@ public:
    bool populateMap();
    bool spawn();
    int entitiesAtGoal();
+   void overrideEntitiesAtGoal(int e);
    int activeEntities();
    int* getTowerList();
    std::string getTowerListString();
@@ -30,6 +31,7 @@ public:
    void crossoverTowers(Sim* s1, Sim* s2);
    void setSpawnPerTick(int s);
    int getSpawnPerTick();
+   void encodeForMPI(int* a);
    ~Sim();
 
 protected:
@@ -37,6 +39,7 @@ protected:
    int numTowers;
    int numEntities;
    int spawnPerTick;
+   int overrideEntities;
 };
 
 

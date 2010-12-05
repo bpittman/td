@@ -1037,3 +1037,24 @@ TEST(Sim, TowersListString) {
 
   delete s, t1, t2;
 }
+
+TEST(Sim, EncodeForMPI) {
+  Sim* s = new Sim();
+  Tower* t1 = new Tower();
+  t1->setPosition(2,3);
+  EXPECT_TRUE(s->getMap()->addTower(t1));
+  SlowTower* t2 = new SlowTower();
+  t2->setPosition(4,5);
+  EXPECT_TRUE(s->getMap()->addTower(t2));
+  s->overrideEntitiesAtGoal(15);
+  int a[1][7];
+  s->encodeForMPI(a[0]);
+  EXPECT_EQ(2,a[0][0]);
+  EXPECT_EQ(3,a[0][1]);
+  EXPECT_EQ(0,a[0][2]);
+  EXPECT_EQ(4,a[0][3]);
+  EXPECT_EQ(5,a[0][4]);
+  EXPECT_EQ(1,a[0][5]);
+  EXPECT_EQ(15,a[0][6]);
+  delete s, t1, t2;
+}

@@ -11,6 +11,7 @@ Sim::Sim()
    numTowers = 5;
    numEntities = 10;
    spawnPerTick = 1;
+   overrideEntities = -1;
 }
 
 void Sim::tick()
@@ -75,8 +76,15 @@ bool Sim::spawn()
    return true;
 }
 
+void Sim::overrideEntitiesAtGoal(int e)
+{
+   overrideEntities = e;
+}
+
 int Sim::entitiesAtGoal()
 {
+   if(overrideEntities >=0) return overrideEntities;
+
    int entitiesAtGoal = 0;
    int x = map->getGoalPoint()->getPosition()[0];
    int y = map->getGoalPoint()->getPosition()[1];
@@ -209,6 +217,16 @@ void Sim::setSpawnPerTick(int s)
 int Sim::getSpawnPerTick()
 {
    return spawnPerTick;
+}
+
+void Sim::encodeForMPI(int* a)
+{
+   for(int i=0;i<map->getNumTowers();++i) {
+      a[i*3]   = map->getTower(i)->getPosition()[0];
+      a[i*3+1] = map->getTower(i)->getPosition()[1];
+      a[i*3+2] = map->getTower(i)->getType();
+   }
+   a[map->getNumTowers()*3] = entitiesAtGoal();
 }
 
 Sim::~Sim()
