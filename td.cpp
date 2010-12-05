@@ -84,10 +84,10 @@ int main(int argc, char **argv)
       double prevScore = 0;
       while(pool->size() < poolSize) {
          BigSim* sim = new BigSim;
-	 if(rand()>.5) {
+	 if(rand()%10<1) {
 	    int i = rand()%oldPoolSize;
             sim->setTowersFromList(pool->at(i)->getTowerList(),
-	                           pool->at(i)->getMap()->getNumTowers());
+	                           pool->at(i)->getMap()->getNumTowers()*3);
 	    sim->mutateTower();
 	    prevScore = pool->at(i)->entitiesAtGoal();
 	 }
