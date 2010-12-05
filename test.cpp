@@ -714,10 +714,12 @@ TEST(Sim, CreateSim) {
 TEST(Sim, CreateBigSim) {
   BigSim* s = NULL;
   s = new BigSim();
+  s->populateMap();
   ASSERT_TRUE(s != NULL);
   EXPECT_EQ(50,s->getMap()->getSize()[0]);
   EXPECT_EQ(50,s->getMap()->getSize()[1]);
   EXPECT_EQ(50,s->getMap()->getNumPaths());
+  EXPECT_EQ(15,s->getMap()->getNumTowers());
   delete s;
 }
 
@@ -725,6 +727,7 @@ TEST(Sim, RunBigSim) {
   srand(1);
   BigSim* s = NULL;
   s = new BigSim();
+  s->populateMap();
   ASSERT_TRUE(s != NULL);
   int ticks = 0;
   while(s->activeEntities()) {

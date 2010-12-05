@@ -259,8 +259,6 @@ BigSim::BigSim()
       p->setPosition(i,i);
       map->addPath(p);
    }
-   populateMap();
-
 }
 
 BigSim::~BigSim()
