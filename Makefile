@@ -1,4 +1,5 @@
 GTESTDIR=/usr
+MPI_LIBS= -lmpi++ -lmpi
 CXX=g++
 
 OBJECTS = \
@@ -9,10 +10,13 @@ OBJECTS = \
    sim.o \
    path.o
 
-all: td test
+all: td tdmpi test
 
 td: $(OBJECTS) td.o
 	$(CXX) -o $@ $(OBJECTS) td.o
+
+tdmpi: $(OBJECTS) tdmpi.o
+	$(CXX) -o $@ $(MPI_LIBS) $(OBJECTS) tdmpi.o
 
 test: $(OBJECTS) test.cpp
 	$(CXX) -g -lpthread \
@@ -25,4 +29,4 @@ test: $(OBJECTS) test.cpp
 	./test
 
 clean:
-	rm -rf *.o test td
+	rm -rf *.o test td tdmpi
