@@ -958,6 +958,11 @@ TEST(Sim, CrossoverTowers) {
 
   EXPECT_EQ(9,s3->getMap()->getTower(4)->getPosition()[0]);
   EXPECT_EQ(1,s3->getMap()->getTower(4)->getPosition()[1]);
+
+  for(int i=0;i<s1->getMap()->getNumTowers();++i) {
+     EXPECT_EQ(s1->getMap()->getTower(i)->getType(),
+               s3->getMap()->getTower(i)->getType());
+  }
   delete s1, s2, s3;
 }
 

@@ -184,7 +184,12 @@ void Sim::crossoverTowers(Sim* s1, Sim* s2)
       y1 = s1->getMap()->getTower(i)->getPosition()[1];
       x2 = s2->getMap()->getTower(i)->getPosition()[0];
       y2 = s2->getMap()->getTower(i)->getPosition()[1];
-      Tower* t = new Tower();
+      TowerType type = s1->getMap()->getTower(i)->getType();
+      Tower* t;
+      if(type==TOWER) t = new Tower();
+      else if(type==SLOW_TOWER) t = new SlowTower();
+      else if(type==LONG_TOWER) t = new LongTower();
+      else if(type==SHORT_TOWER) t = new ShortTower();
       //try to grab a tower position from sim1 or sim2
       if((rand()%2==0) && map->checkTowerPos(x1,y1)) {
          t->setPosition(x1,y1);
