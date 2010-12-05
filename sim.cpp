@@ -55,7 +55,7 @@ bool Sim::populateMap()
       else t = new LongTower;
       t->setPosition(xx,yy);
       if(!map->addTower(t)) delete t;
-      i++;
+      else i++;
    }
    return true;
 }
