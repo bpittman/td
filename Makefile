@@ -1,6 +1,6 @@
-GTESTDIR=/usr
+GTESTDIR=/home/uahcls19/local
 MPI_LIBS= -lmpi++ -lmpi
-CXX=g++
+CXX=icpc
 
 OBJECTS = \
    tower.o \
