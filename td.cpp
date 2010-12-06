@@ -1,11 +1,19 @@
 #include <stdlib.h>
+#include <sys/time.h>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <map>
 
 #include "sim.hpp"
 
 typedef std::pair<std::string, BigSim*> SimPair;
+
+#define TIMER_CLEAR     (tv1.tv_sec = tv1.tv_usec = tv2.tv_sec = tv2.tv_usec = 0)
+#define TIMER_START     gettimeofday(&tv1, (struct timezone*)0)
+#define TIMER_ELAPSED   ((tv2.tv_usec-tv1.tv_usec)+((tv2.tv_sec-tv1.tv_sec)*1000000))
+#define TIMER_STOP      gettimeofday(&tv2, (struct timezone*)0)
+struct timeval tv1,tv2;
 
 int main(int argc, char **argv)
 {
@@ -26,6 +34,9 @@ int main(int argc, char **argv)
    int oldPoolSize, best, r;
    BigSim* bestSim;
    
+   TIMER_CLEAR;
+   TIMER_START;
+
    //create Sim pool
    while(pool->size() < poolSize) {
       BigSim* sim = new BigSim;
@@ -117,6 +128,9 @@ int main(int argc, char **argv)
       std::cout << bestSim->getMap()->print();
       std::cout << best << std::endl;
    }
+
+   TIMER_STOP;
+   std::cout << std::setprecision(8) <<  TIMER_ELAPSED/1000000.0 << std::endl;
 
    return 0;
 }

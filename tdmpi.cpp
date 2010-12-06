@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <sys/time.h>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <map>
 #include <mpi.h>
@@ -7,6 +9,12 @@
 #include "sim.hpp"
 
 typedef std::pair<std::string, BigSim*> SimPair;
+
+#define TIMER_CLEAR     (tv1.tv_sec = tv1.tv_usec = tv2.tv_sec = tv2.tv_usec = 0)
+#define TIMER_START     gettimeofday(&tv1, (struct timezone*)0)
+#define TIMER_ELAPSED   ((tv2.tv_usec-tv1.tv_usec)+((tv2.tv_sec-tv1.tv_sec)*1000000))
+#define TIMER_STOP      gettimeofday(&tv2, (struct timezone*)0)
+struct timeval tv1,tv2;
 
 int main(int argc, char **argv)
 {
@@ -34,6 +42,9 @@ int main(int argc, char **argv)
    int oldPoolSize, best, r;
    BigSim* bestSim;
    
+   TIMER_CLEAR;
+   TIMER_START;
+
    //create Sim pool
    if(rank==0) {
       while(pool->size() < poolSize) {
@@ -94,12 +105,13 @@ int main(int argc, char **argv)
             delete pool->at(i);
          }
       }
-      //Scatter to all ranks
+
+      //scatter to all ranks
       MPI_Scatter(buff,tournaments/numtasks*46,MPI_INT,
                   local,tournaments/numtasks*46,MPI_INT,
                   0,MPI_COMM_WORLD);
-      //rebuild Sims
 
+      //rebuild Sims
       pool->clear();
       poolMap->clear();
       for(int i=0;i<tournaments/numtasks;++i) {
@@ -133,7 +145,7 @@ int main(int argc, char **argv)
          poolMap->insert(SimPair(sim->getTowerListString(),sim));
       }
 
-      //Gather from all ranks
+      //gather from all ranks
       for(int i=0;i<poolSize;++i) {
          pool->at(i)->encodeForMPI(buff[i]);
       }
@@ -143,6 +155,8 @@ int main(int argc, char **argv)
       pool->clear();
       poolMap->clear();
       MPI_Gather(buff,poolSize*46,MPI_INT,buff,poolSize*46,MPI_INT,0,MPI_COMM_WORLD);
+
+      //rebuild Sims
       if(rank==0) {
          for(int i=0;i<poolSize*numtasks;++i) {
             BigSim* s = new BigSim;
@@ -153,21 +167,25 @@ int main(int argc, char **argv)
          }
       }
    }
-   //find & print best Sim
-   best = 100;
-   bestSim = NULL;
-   for(int i=0;i<pool->size();++i) {
-      if(pool->at(i)->entitiesAtGoal() < best) {
-         best = pool->at(i)->entitiesAtGoal();
-	 bestSim = pool->at(i);
+
+   TIMER_STOP;
+
+   if(rank==0) {
+      //find & print best Sim
+      best = 100;
+      bestSim = NULL;
+      for(int i=0;i<pool->size();++i) {
+         if(pool->at(i)->entitiesAtGoal() < best) {
+            best = pool->at(i)->entitiesAtGoal();
+	    bestSim = pool->at(i);
+         }
       }
+      if(bestSim) {
+         std::cout << bestSim->getMap()->print();
+         std::cout << best << std::endl;
+      }
+      std::cout << std::setprecision(8) <<  TIMER_ELAPSED/1000000.0 << std::endl;
    }
-
-   if(bestSim) {
-      std::cout << bestSim->getMap()->print();
-      std::cout << best << std::endl;
-   }
-
    MPI_Finalize();
    return 0;
 }
