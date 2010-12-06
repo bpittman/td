@@ -98,13 +98,8 @@ int main(int argc, char **argv)
 	    prevScore = (pool->at(i)->entitiesAtGoal()+pool->at(j)->entitiesAtGoal())/2.;
 	 }
 	 while(sim->activeEntities()) sim->tick();
-	 if(sim->entitiesAtGoal() > prevScore) {
-	    delete sim;
-	 }
-	 else {
-	    pool->push_back(sim);
-	    poolMap->insert(SimPair(sim->getTowerListString(),sim));
-	 }
+         pool->push_back(sim);
+         poolMap->insert(SimPair(sim->getTowerListString(),sim));
       }
    }
 
